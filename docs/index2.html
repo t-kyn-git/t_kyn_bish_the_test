@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>うんこまーん</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20%;
+        }
+        #container {
+            font-size: 3em;
+            color: brown;
+            display: inline-block;
+        }
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+        .visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script>
+        const text = "うんこまーん";
+        const container = document.getElementById("container");
+
+        // 1文字ずつspanタグに分ける
+        text.split("").forEach((char, index) => {
+            const span = document.createElement("span");
+            span.textContent = char;
+            span.classList.add("fade-in");
+            container.appendChild(span);
+
+            // 1秒ずつ遅れてフェードインさせる
+            setTimeout(() => {
+                span.classList.add("visible");
+            }, index * 1000);
+        });
+    </script>
+</body>
+</html>
