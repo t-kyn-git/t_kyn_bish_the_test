@@ -1,11 +1,11 @@
 name: LocalStack and Terraform Test
 
 on: [push]
-on:
-  workflow_run:
-    workflows: ["LocalStack Test Workflow"]
-    types:
-      - completed
+# on:
+#   workflow_run:
+#     workflows: ["LocalStack Test Workflow"]
+#     types:
+#       - completed
 
 jobs:
   localstack_test:
