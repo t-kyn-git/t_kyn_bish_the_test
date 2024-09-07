@@ -62,12 +62,11 @@ resource "aws_api_gateway_rest_api" "my_api" {
 }
 
 # Lambda 関数の作成
-resource "aws_lambda_function" "my_lambda" {
-  function_name = "my_lambda_function"
+resource "aws_lambda_function" "lambda_function_payload" {
+  function_name = "lambda_function_payload"
   role          = aws_iam_role.lambda_role.arn
   handler       = "index.handler"
   runtime       = "nodejs14.x"
-  ###filename      = "lambda/lambda_function_payload.zip"
   filename         = data.archive_file.example_zip.output_path
   source_code_hash = data.archive_file.example_zip.output_base64sha256
 }
