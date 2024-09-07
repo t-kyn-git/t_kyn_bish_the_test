@@ -37,7 +37,7 @@ jobs:
 
   dust_resources_delete:
     runs-on: ubuntu-latest
-    needs: [dust_resources_delete]
+    needs: [localstack_test]
 
     steps:
     # - name: Set up LocalStack
