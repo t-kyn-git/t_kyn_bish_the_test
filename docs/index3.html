@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>うんこまーん</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20%;
+        }
+        #container {
+            font-size: 3em;
+            color: brown;
+            display: inline-block;
+        }
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+        .visible {
+            opacity: 1;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Development Overview</h1>
+    <table>
+        <tr>
+            <th>Tool/Application</th>
+            <th>Environment</th>
+            <th>Details</th>
+        </tr>
+        <tr>
+            <td>k3d Application</td>
+            <td>Private Server</td>
+            <td>This application is running on a private server using k3d.</td>
+        </tr>
+        <tr>
+            <td>Ansible</td>
+            <td>Private Server</td>
+            <td>Ansible is used to manage the configuration of private servers.</td>
+        </tr>
+        <tr>
+            <td>Terraform</td>
+            <td>Private Server</td>
+            <td>Terraform is used for infrastructure as code (IaC) on private servers.</td>
+        </tr>
+        <tr>
+            <td>Django</td>
+            <td>Public Module</td>
+            <td>Django is used as a public module for web applications.</td>
+        </tr>
+        <tr>
+            <td>Trivy</td>
+            <td>CI/CD Pipeline</td>
+            <td>Trivy is used for container image scanning to detect vulnerabilities.</td>
+        </tr>
+        <tr>
+            <td>Grype</td>
+            <td>CI/CD Pipeline</td>
+            <td>Grype is used for container image scanning to identify vulnerabilities.</td>
+        </tr>
+    </table>
+
+    <div id="container"></div>
+
+    <script>
+        const text = "うんこまーん";
+        const container = document.getElementById("container");
+
+        // 1文字ずつspanタグに分ける
+        text.split("").forEach((char, index) => {
+            const span = document.createElement("span");
+            span.textContent = char;
+            span.classList.add("fade-in");
+            container.appendChild(span);
+
+            // 1秒ずつ遅れてフェードインさせる
+            setTimeout(() => {
+                span.classList.add("visible");
+            }, index * 500);
+        });
+    </script>
+</body>
+</html>
