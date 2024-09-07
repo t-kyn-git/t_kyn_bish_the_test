@@ -95,10 +95,10 @@ resource "aws_api_gateway_rest_api" "my_api" {
 #Output
 # VPC ID を出力する
 output "vpc_id" {
-  value = aws_vpc.my_vpc.id
+  value = aws_vpc.main_vpc.id
 }
 
 # サブネット ID を出力する
 output "subnet_id" {
-  value = aws_subnet.my_subnet.id
+  value = aws_subnet.public_subnet.id
 }
