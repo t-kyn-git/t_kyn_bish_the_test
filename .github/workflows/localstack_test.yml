@@ -72,27 +72,36 @@ jobs:
     #     aws --endpoint-url=http://localhost:4566 rds create-db-instance --db-instance-identifier my-cluster-instance --db-instance-class db.t3.medium --engine aurora --db-cluster-identifier $CLUSTER_ID
     #     aws --endpoint-url=http://localhost:4566 rds create-db-instance --db-instance-identifier my-cluster-instance-replica --db-instance-class db.t3.medium --engine aurora --db-cluster-identifier $CLUSTER_ID --db-instance-role reader
 
-    - name: Create RDS Oracle Instances
+    - name: Create DynamoDB Table
       run: |
-        # Create master DB instance
-        MASTER_DB_ID=$(aws --endpoint-url=http://localhost:4566 rds create-db-instance \
-          --db-instance-identifier my-oracle-master \
-          --db-instance-class db.t3.micro \
-          --engine oracle-se2 \
-          --allocated-storage 20 \
-          --master-username admin \
-          --master-user-password password \
-          --db-name mydatabase \
-          --query "DBInstance.DBInstanceIdentifier" --output text)
+        aws --endpoint-url=http://localhost:4566 dynamodb create-table \
+          --table-name my-table \
+          --attribute-definitions AttributeName=id,AttributeType=N \
+          --key-schema AttributeName=id,KeyType=HASH \
+          --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+
+    # - name: Create RDS Oracle Instances
+    #   run: |
+    #     # Create master DB instance
+    #     MASTER_DB_ID=$(aws --endpoint-url=http://localhost:4566 rds create-db-instance \
+    #       --db-instance-identifier my-oracle-master \
+    #       --db-instance-class db.t3.micro \
+    #       --engine oracle-se2 \
+    #       --allocated-storage 20 \
+    #       --master-username admin \
+    #       --master-user-password password \
+    #       --db-name mydatabase \
+    #       --query "DBInstance.DBInstanceIdentifier" --output text)
         
-        # Create read replica of master DB instance
-        aws --endpoint-url=http://localhost:4566 rds create-db-instance \
-          --db-instance-identifier my-oracle-replica \
-          --db-instance-class db.t3.micro \
-          --engine oracle-se2 \
-          --source-db-instance-identifier $MASTER_DB_ID \
-          --allocated-storage 20
-          
+    #     # Create read replica of master DB instance
+    #     aws --endpoint-url=http://localhost:4566 rds create-db-instance \
+    #       --db-instance-identifier my-oracle-replica \
+    #       --db-instance-class db.t3.micro \
+    #       --engine oracle-se2 \
+    #       --source-db-instance-identifier $MASTER_DB_ID \
+    #       --allocated-storage 20
+
+
     - name: Install Python and Diagrams
       run: |
         sudo apt-get install -y python3 python3-pip
