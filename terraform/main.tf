@@ -60,7 +60,7 @@ resource "aws_lambda_function" "my_lambda" {
   role          = aws_iam_role.lambda_role.arn
   handler       = "index.handler"
   runtime       = "nodejs14.x"
-  filename      = "lambda_function_payload.zip"
+  filename      = "terraform/lambda/lambda_function_payload.zip"
 }
 
 # Lambda 関数の IAM ロール
