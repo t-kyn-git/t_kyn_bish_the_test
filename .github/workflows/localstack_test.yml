@@ -1,6 +1,13 @@
 name: LocalStack AWS Infrastructure Test
 
-on: [push]
+# on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   localstack_test:
