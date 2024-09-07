@@ -1,0 +1,56 @@
+name: TFLocal Workflow
+
+on: [push]
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
+
+jobs:
+  terraform-local:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # LocalStackのセットアップ
+    - name: Set up LocalStack
+      uses: localstack/localstack-action@v1
+      with:
+        services: s3, ec2, apigateway, lambda  # LocalStackで使用するサービス
+
+    # TFLocalのインストール
+    - name: Install TFLocal
+      run: |
+        pip install localstack-client  # LocalStack用のクライアントツールをインストール
+        wget https://github.com/localstack/terraform-local/releases/download/v0.13/tflocal-linux-amd64
+        chmod +x tflocal-linux-amd64
+        sudo mv tflocal-linux-amd64 /usr/local/bin/tflocal
+
+    # Terraformの初期化 (tflocal init)
+    - name: Initialize TFLocal
+      run: |
+        cd terraform
+        tflocal init
+
+    # 既存のリソースを削除
+    - name: Clean existing resources (dust resources delete)
+      run: |
+        cd terraform
+        tflocal destroy -auto-approve || true
+
+    # Terraformの適用 (tflocal apply)
+    - name: Apply TFLocal configuration
+      run: |
+        cd terraform
+        tflocal apply -auto-approve
+
+    # 出力の確認 (optional)
+    - name: Output TFLocal state
+      run: |
+        cd terraform
+        tflocal output

@@ -1,9 +1,16 @@
 name: LocalStack AWS Infrastructure Test
 
-on: [push]
+# on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  test:
+  localstack_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -166,3 +173,4 @@ jobs:
     #   with:
     #     name: architecture-diagram
     #     path: architecture.png
+  
