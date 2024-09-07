@@ -20,9 +20,9 @@ jobs:
         docker run --rm -d -p 4566:4566 localstack/localstack
 
     - name: Set up LocalStack
-      uses: localstack/awscli-local-action@v1
+      uses: localstack/localstack-action@v1
       with:
-        services: s3,apigateway,lambda,ec2
+        services: ec2, s3, apigateway, lambda
         debug: true
 
     - name: Set up Terraform
