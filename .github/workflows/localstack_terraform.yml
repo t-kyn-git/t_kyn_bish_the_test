@@ -17,11 +17,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # LocalStack のセットアップ
+    # # LocalStack のセットアップ
+    # - name: Set up LocalStack
+    #   uses: localstack/localstack-action@v1
+    #   with:
+    #     services: ec2, s3, apigateway, lambda
+
     - name: Set up LocalStack
-      uses: localstack/localstack-action@v1
-      with:
-        services: ec2, s3, apigateway, lambda
+      run: |
+        docker run --rm -d -p 4566:4566 localstack/localstack
 
     # TFLocal のインストール
     - name: Install TFLocal
