@@ -13,6 +13,13 @@ provider "aws" {
   }
 }
 
+# データ定義
+data "archive_file" "example_zip" {
+  type        = "zip"
+  source_dir  = "lambda"
+  output_path = "lambda/lambda_function_payload.zip"
+}
+
 # VPCの作成
 resource "aws_vpc" "main_vpc" {
   cidr_block = "10.0.0.0/16"
@@ -60,7 +67,9 @@ resource "aws_lambda_function" "my_lambda" {
   role          = aws_iam_role.lambda_role.arn
   handler       = "index.handler"
   runtime       = "nodejs14.x"
-  filename      = "lambda/lambda_function_payload.zip"
+  ###filename      = "lambda/lambda_function_payload.zip"
+  filename         = data.archive_file.example_zip.output_path
+  source_code_hash = data.archive_file.example_zip.output_base64sha256
 }
 
 # Lambda 関数の IAM ロール
