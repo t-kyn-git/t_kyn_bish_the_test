@@ -18,6 +18,12 @@ data "archive_file" "example_zip" {
   type        = "zip"
   source_dir  = "lambda"
   output_path = "lambda/lambda_function_payload.zip"
+  
+  # Lambda 関数のコードを含むファイルを指定
+  source {
+    content  = file("lambda/index.js")
+    filename = "index.js"
+  }
 }
 
 # VPCの作成
