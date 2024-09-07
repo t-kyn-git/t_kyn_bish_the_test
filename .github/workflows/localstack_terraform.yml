@@ -1,106 +1,55 @@
-name: LocalStack and Terraform Test
+name: TFLocal Workflow
 
-on: [push]
-# on:
-#   workflow_run:
-#     workflows: ["LocalStack Test Workflow"]
-#     types:
-#       - completed
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  localstack_test:
+  terraform-local:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    # LocalStackのセットアップ
     - name: Set up LocalStack
-      run: |
-        docker run --rm -d -p 4566:4566 localstack/localstack
-
-    # - name: Set up LocalStack
-    #   uses: localstack/localstack-action@v1
-    #   with:
-    #     services: ec2, s3, apigateway, lambda
-    #     debug: true
-
-    - name: Install Terraform
-      run: |
-        sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
-        curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-        sudo apt-add-repository "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-        sudo apt-get update && sudo apt-get install terraform
-
-    - name: Upload artifacts (optional)
-      uses: actions/upload-artifact@v3
+      uses: localstack/localstack-action@v1
       with:
-        name: localstack-test-artifacts
-        path: .
+        services: s3, ec2, apigateway, lambda  # LocalStackで使用するサービス
 
-  dust_resources_delete:
-    runs-on: ubuntu-latest
-    needs: [localstack_test]
-
-    steps:
-    # - name: Set up LocalStack
-    #   uses: localstack/github-action@v1
-    #   with:
-    #     services: ec2, s3, apigateway, lambda
-    #     debug: true
-
-    - name: Delete EC2 Instances
+    # TFLocalのインストール
+    - name: Install TFLocal
       run: |
-        INSTANCE_IDS=$(aws --endpoint-url=http://localhost:4566 ec2 describe-instances --query "Reservations[*].Instances[*].InstanceId" --output text)
-        for instance_id in $INSTANCE_IDS; do
-          aws --endpoint-url=http://localhost:4566 ec2 terminate-instances --instance-ids $instance_id
-        done
-        aws --endpoint-url=http://localhost:4566 ec2 wait instance-terminated --instance-ids $INSTANCE_IDS
+        pip install localstack-client  # LocalStack用のクライアントツールをインストール
+        wget https://github.com/localstack/terraform-local/releases/download/v0.13/tflocal-linux-amd64
+        chmod +x tflocal-linux-amd64
+        sudo mv tflocal-linux-amd64 /usr/local/bin/tflocal
 
-    - name: Delete VPCs
-      run: |
-        VPC_IDS=$(aws --endpoint-url=http://localhost:4566 ec2 describe-vpcs --query "Vpcs[*].VpcId" --output text)
-        for vpc_id in $VPC_IDS; do
-          IGW_ID=$(aws --endpoint-url=http://localhost:4566 ec2 describe-internet-gateways --filters Name=attachment.vpc-id,Values=$vpc_id --query "InternetGateways[0].InternetGatewayId" --output text)
-          if [ "$IGW_ID" != "None" ]; then
-            aws --endpoint-url=http://localhost:4566 ec2 detach-internet-gateway --internet-gateway-id $IGW_ID --vpc-id $vpc_id
-            aws --endpoint-url=http://localhost:4566 ec2 delete-internet-gateway --internet-gateway-id $IGW_ID
-          fi
-          SUBNET_IDS=$(aws --endpoint-url=http://localhost:4566 ec2 describe-subnets --filters Name=vpc-id,Values=$vpc_id --query "Subnets[*].SubnetId" --output text)
-          for subnet_id in $SUBNET_IDS; do
-            aws --endpoint-url=http://localhost:4566 ec2 delete-subnet --subnet-id $subnet_id
-          done
-          aws --endpoint-url=http://localhost:4566 ec2 delete-vpc --vpc-id $vpc_id
-        done
-
-    - name: Delete S3 Buckets
-      run: |
-        BUCKETS=$(aws --endpoint-url=http://localhost:4566 s3api list-buckets --query "Buckets[*].Name" --output text)
-        for bucket in $BUCKETS; do
-          aws --endpoint-url=http://localhost:4566 s3 rb s3://$bucket --force
-        done
-
-  terraform_apply:
-    runs-on: ubuntu-latest
-    needs: [localstack_test, dust_resources_delete]
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Install Terraform
-      run: |
-        sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
-        curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-        sudo apt-add-repository "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-        sudo apt-get update && sudo apt-get install terraform
-
-    - name: Initialize Terraform
+    # Terraformの初期化 (tflocal init)
+    - name: Initialize TFLocal
       run: |
         cd terraform
-        terraform init
+        tflocal init
 
-    - name: Apply Terraform configuration
+    # 既存のリソースを削除
+    - name: Clean existing resources (dust resources delete)
       run: |
         cd terraform
-        terraform apply -auto-approve
+        tflocal destroy -auto-approve || true
+
+    # Terraformの適用 (tflocal apply)
+    - name: Apply TFLocal configuration
+      run: |
+        cd terraform
+        tflocal apply -auto-approve
+
+    # 出力の確認 (optional)
+    - name: Output TFLocal state
+      run: |
+        cd terraform
+        tflocal output
