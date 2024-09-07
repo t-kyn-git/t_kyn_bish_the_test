@@ -1,5 +1,20 @@
 # name: Django CI
 
+# 動くきっかけ(暫定対応)
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# 動かす内容
+jobs:
+  sample:
+    name: Hello World Job
+    runs-on: ubuntu-latest # 実行環境
+    steps: # 実行する内容
+      - run: echo "Hello World t_kyn!"
+
 # on:
 #   push:
 #     branches: [ "main" ]
