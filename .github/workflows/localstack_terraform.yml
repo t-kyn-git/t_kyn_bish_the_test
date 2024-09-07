@@ -44,11 +44,11 @@ jobs:
 
     # 暫定追加
     - name: Print current directory(Temporary add 2024/09/07)
-      run: pwd
+      run: ls -lrt
     # Terraform の初期化
     - name: Initialize TFLocal
       run: |
-        cd terraform
+        cd /terraform
         tflocal init
 
     # Terraform の適用
