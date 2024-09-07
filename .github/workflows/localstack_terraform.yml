@@ -17,39 +17,60 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # LocalStackのセットアップ
-    - name: Set up LocalStack
-      uses: localstack/localstack-action@v1
-      with:
-        services: s3, ec2, apigateway, lambda  # LocalStackで使用するサービス
+    # # LocalStack のセットアップ
+    # - name: Set up LocalStack
+    #   uses: localstack/localstack-action@v1
+    #   with:
+    #     services: ec2, s3, apigateway, lambda
 
-    # TFLocalのインストール
+    - name: Set up LocalStack
+      run: |
+        docker run --rm -d -p 4566:4566 localstack/localstack
+
+    # # TFLocal のインストール
+    # - name: Install TFLocal
+    #   run: |
+    #     pip install localstack-client
+    #     wget https://github.com/localstack/terraform-local/releases/download/v0.13/tflocal-linux-amd64
+    #     chmod +x tflocal-linux-amd64
+    #     sudo mv tflocal-linux-amd64 /usr/local/bin/tflocal
+    # TFLocal のインストール
     - name: Install TFLocal
       run: |
-        pip install localstack-client  # LocalStack用のクライアントツールをインストール
-        wget https://github.com/localstack/terraform-local/releases/download/v0.13/tflocal-linux-amd64
-        chmod +x tflocal-linux-amd64
-        sudo mv tflocal-linux-amd64 /usr/local/bin/tflocal
+          pip install localstack-client
+          pip install terraform-local
+    #       git clone https://github.com/localstack/terraform-local.git
+    #       ls -lrtR
+    #       chmod -x terraform-local/bin/tflocal
+    #       sudo mv terraform-local/bin/tflocal terraform/tflocal
+    # chmod +x tflocal-linux-amd64
+    # sudo mv tflocal-linux-amd64 /usr/local/bin/tflocal
 
-    # Terraformの初期化 (tflocal init)
+    # 暫定追加
+    - name: Print current directory(Temporary add 2024/09/07)
+      run: ls -lrt
+
+    # Lambdaのファイルがあるかの事前確認
+    - name: Verify ZIP file creation
+      run: |
+        cd terraform
+        ls -la lambda/
+        unzip -l lambda/lambda_function_payload.zip
+
+    # Terraform の初期化
     - name: Initialize TFLocal
       run: |
         cd terraform
         tflocal init
 
-    # 既存のリソースを削除
-    - name: Clean existing resources (dust resources delete)
-      run: |
-        cd terraform
-        tflocal destroy -auto-approve || true
-
-    # Terraformの適用 (tflocal apply)
+    # Terraform の適用
     - name: Apply TFLocal configuration
       run: |
         cd terraform
+        ls -lrtR
         tflocal apply -auto-approve
 
-    # 出力の確認 (optional)
+    # 出力の確認
     - name: Output TFLocal state
       run: |
         cd terraform
