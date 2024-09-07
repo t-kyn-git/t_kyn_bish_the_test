@@ -60,11 +60,7 @@ jobs:
     - name: Create Lambda Function
       run: |
         ZIP_FILE="function.zip"
-        cat > index.js << 'EOF'
-exports.handler = async (event) => {
-    return { statusCode: 200, body: 'Hello from Lambda!' };
-};
-EOF
+        echo "exports.handler = async (event) => { return { statusCode: 200, body: 'Hello from Lambda!' }; };" > index.js
         zip $ZIP_FILE index.js
         LAMBDA_ROLE_ARN=$(aws --endpoint-url=http://localhost:4566 iam create-role --role-name lambda-role --assume-role-policy-document '{"Version": "2012-10-17", "Statement": [{"Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"}, "Action": "sts:AssumeRole"}]}' --query "Role.Arn" --output text)
         aws --endpoint-url=http://localhost:4566 iam attach-role-policy --role-name lambda-role --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
@@ -83,7 +79,8 @@ EOF
 
     - name: Generate Architecture Diagram
       run: |
-        python3 - << 'EOF'
+        # Create a Python script file
+        echo '
 from diagrams import Diagram, Cluster
 from diagrams.aws.network import VPC, PublicSubnet, PrivateSubnet, InternetGateway
 from diagrams.aws.compute import EC2
@@ -125,7 +122,13 @@ with Diagram("AWS Infrastructure", show=False):
     lambda_func
     rds >> master_db
     rds >> replica_db
-EOF
+        ' > generate_diagram.py
+
+        # Run the Python script to generate the diagram
+        python3 generate_diagram.py
+
+        # Rename the output diagram if needed
+        mv architecture.png architecture-diagram.png
 
     - name: Upload Diagram
       uses: actions/upload-artifact@v3
