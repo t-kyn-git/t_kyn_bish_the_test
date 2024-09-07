@@ -25,9 +25,12 @@ jobs:
     #     services: ec2, s3, apigateway, lambda
     #     debug: true
 
-    - name: Set up Terraform
+    - name: Install Terraform
       run: |
-        sudo apt-get update && sudo apt-get install -y terraform
+        sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
+        curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+        sudo apt-add-repository "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+        sudo apt-get update && sudo apt-get install terraform
 
     - name: Upload artifacts (optional)
       uses: actions/upload-artifact@v3
@@ -85,9 +88,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Terraform
+    - name: Install Terraform
       run: |
-        sudo apt-get update && sudo apt-get install -y terraform
+        sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
+        curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+        sudo apt-add-repository "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+        sudo apt-get update && sudo apt-get install terraform
 
     - name: Initialize Terraform
       run: |
