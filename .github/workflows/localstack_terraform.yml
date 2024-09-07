@@ -59,7 +59,7 @@ jobs:
     - name: Apply TFLocal configuration
       run: |
         cd terraform
-        ls -lrt
+        ls -lrtR
         tflocal apply -auto-approve
 
     # 出力の確認
