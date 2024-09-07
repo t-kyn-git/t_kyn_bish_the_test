@@ -1,3 +1,36 @@
 # t_kyn_bish_the_test
 public test
-生成AI使った諸々の動作確認するためのモジュールを作成ます。
+生成AI使った諸々の動作確認するためのモジュールを作成します。
+
+* 目的
+  * 近年、企業のビジネス変革が求められる時代となっている
+  * そのうちの1つとして、DX戦略の推進を行う企業が増加している
+  * 個人の得意分野のスキルアップと同時に、新しい知識を学びなおす必要がある
+  * 仕組みのトライアンドエラーを迅速化する
+
+* 前提条件
+  * 個人情報はアップロード禁止
+  * データはオープンデータもしくは、Fakerを利用して作成
+  * あくまでも仕組みを思いついたら即作成する
+  * Github Actionsは使わないときは
+  * 下品な言葉があるかもしれません。。
+
+* 作成している内容について
+  * 1) djangoアプリケーション開発
+    * 運用フロー
+      * Djangoアプリケーションの開発をVisual Studio code にて実装
+      * コミット・Githubリポジトリにアップロード
+      * Google Colaboratory上での動作確認
+      * Visual Studio code → Github → GoogleColaboratoryというフローで迅速な開発を行います。
+      * GoogleColaboratoryのファイルは特定のファイルを使用
+        * django_hogehogehogeeeeeeeeee.ipynb
+    * 応用
+      * オープンデータ活用（検討中）
+
+  * 2) Webホスティング開発
+    * HTML、CSS、Javascriptの動作確認
+    * 
+
+  * 3) Github Actionsの新規機能をお試し実行
+    * プライベートリポジトリでは費用のかかる機能のお試し開発
+      * 

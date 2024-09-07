@@ -1,0 +1,49 @@
+name: LocalStack AWS Infrastructure Test
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up LocalStack
+      run: |
+        docker run --rm -d -p 4566:4566 localstack/localstack
+
+    - name: Install AWS CLI
+      run: |
+        sudo apt-get install -y awscli
+
+    - name: Configure AWS CLI
+      run: |
+        aws configure set aws_access_key_id test
+        aws configure set aws_secret_access_key test
+        aws configure set region us-east-1
+
+    - name: Create VPC
+      id: create_vpc
+      run: |
+        VPC_ID=$(aws --endpoint-url=http://localhost:4566 ec2 create-vpc --cidr-block 10.0.0.0/16 --query "Vpc.VpcId" --output text)
+        echo "VPC_ID=$VPC_ID" >> $GITHUB_ENV
+
+    - name: Create Subnets
+      run: |
+        aws --endpoint-url=http://localhost:4566 ec2 create-subnet --vpc-id ${{ env.VPC_ID }} --cidr-block 10.0.1.0/24 --availability-zone us-east-1a
+        aws --endpoint-url=http://localhost:4566 ec2 create-subnet --vpc-id ${{ env.VPC_ID }} --cidr-block 10.0.2.0/24 --availability-zone us-east-1b
+
+    - name: Create Internet Gateway
+      run: |
+        IGW_ID=$(aws --endpoint-url=http://localhost:4566 ec2 create-internet-gateway --query "InternetGateway.InternetGatewayId" --output text)
+        aws --endpoint-url=http://localhost:4566 ec2 attach-internet-gateway --vpc-id ${{ env.VPC_ID }} --internet-gateway-id $IGW_ID
+
+    - name: Create EC2 Instances
+      run: |
+        PUBLIC_SUBNET_ID=$(aws --endpoint-url=http://localhost:4566 ec2 describe-subnets --query "Subnets[?CidrBlock=='10.0.1.0/24'].SubnetId" --output text)
+        PRIVATE_SUBNET_ID=$(aws --endpoint-url=http://localhost:4566 ec2 describe-subnets --query "Subnets[?CidrBlock=='10.0.2.0/24'].SubnetId" --output text)
+        
+        aws --endpoint-url=http://localhost:4566 ec2 run-instances --image-id ami-12345678 --count 1 --instance-type t2.micro --subnet-id $PUBLIC_SUBNET_ID --associate-public-ip-address
+        aws --endpoint-url=http://localhost:4566 ec2 run-instances --image-id ami-12345678 --count 1 --instance-type t2.micro --subnet-id $PRIVATE_SUBNET_ID
