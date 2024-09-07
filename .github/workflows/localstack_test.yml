@@ -3,7 +3,7 @@ name: LocalStack AWS Infrastructure Test
 on: [push]
 
 jobs:
-  test:
+  localstack_test:
     runs-on: ubuntu-latest
 
     steps:
