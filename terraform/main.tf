@@ -1,68 +1,85 @@
 provider "aws" {
-  region                      = "us-east-1"
   access_key                  = "mock_access_key"
-  secret_access_key            = "mock_secret_key"
-  skip_credentials_validation  = true
-  skip_requesting_account_id   = true
-  s3_force_path_style          = true
+  secret_key                  = "mock_secret_key"
+  region                      = "us-east-1"
+  s3_force_path_style         = true
+  skip_credentials_validation = true
+  skip_metadata_api_check     = true
   endpoints {
-    ec2        = "http://localhost:4566"
-    iam        = "http://localhost:4566"
+    ec2            = "http://localhost:4566"
+    s3             = "http://localhost:4566"
+    apigateway     = "http://localhost:4566"
+    lambda         = "http://localhost:4566"
   }
 }
 
-resource "aws_iam_role" "ec2_role" {
-  name = "ec2-role"
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
-  ]
-}
-EOF
-}
-
-resource "aws_vpc" "main" {
+# VPCの作成
+resource "aws_vpc" "main_vpc" {
   cidr_block = "10.0.0.0/16"
 }
 
-resource "aws_subnet" "public" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = "10.0.1.0/24"
+# サブネットの作成
+resource "aws_subnet" "public_subnet" {
+  vpc_id            = aws_vpc.main_vpc.id
+  cidr_block        = "10.0.1.0/24"
+  availability_zone = "us-east-1a"
 }
 
-resource "aws_subnet" "private" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = "10.0.2.0/24"
+resource "aws_subnet" "private_subnet" {
+  vpc_id            = aws_vpc.main_vpc.id
+  cidr_block        = "10.0.2.0/24"
+  availability_zone = "us-east-1b"
 }
 
-resource "aws_instance" "master" {
-  ami           = "ami-12345678"
+# EC2 インスタンスの作成（パブリックとプライベート）
+resource "aws_instance" "public_instance" {
+  ami           = "ami-12345678"  # LocalStackで使うモックAMI ID
   instance_type = "t2.micro"
-  subnet_id     = aws_subnet.public.id
-  iam_instance_profile = aws_iam_role.ec2_role.id
-
-  tags = {
-    Name = "MySQL-Master"
-  }
+  subnet_id     = aws_subnet.public_subnet.id
 }
 
-resource "aws_instance" "replica" {
-  ami           = "ami-12345678"
+resource "aws_instance" "private_instance" {
+  ami           = "ami-12345678"  # LocalStackで使うモックAMI ID
   instance_type = "t2.micro"
-  subnet_id     = aws_subnet.private.id
-  iam_instance_profile = aws_iam_role.ec2_role.id
+  subnet_id     = aws_subnet.private_subnet.id
+}
 
-  tags = {
-    Name = "MySQL-Replica"
-  }
+# S3 バケットの作成
+resource "aws_s3_bucket" "my_bucket" {
+  bucket = "my-test-bucket"
+}
+
+# API Gateway の作成
+resource "aws_api_gateway_rest_api" "my_api" {
+  name = "MyAPI"
+}
+
+# Lambda 関数の作成
+resource "aws_lambda_function" "my_lambda" {
+  function_name = "my_lambda_function"
+  role          = aws_iam_role.lambda_role.arn
+  handler       = "index.handler"
+  runtime       = "nodejs14.x"
+  filename      = "lambda_function_payload.zip"
+}
+
+# Lambda 関数の IAM ロール
+resource "aws_iam_role" "lambda_role" {
+  name = "lambda_role"
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [{
+      "Effect" : "Allow",
+      "Principal" : {
+        "Service" : "lambda.amazonaws.com"
+      },
+      "Action" : "sts:AssumeRole"
+    }]
+  })
+}
+
+# Lambda の基本的な権限を追加
+resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
