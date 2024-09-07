@@ -12,7 +12,7 @@ jobs:
 
     - name: Set up LocalStack
       run: |
-        docker run --rm -d -p 4566:4566 -p 4510:4510 localstack/localstack
+        docker run --rm -d -p 4566:4566 localstack/localstack
 
     - name: Install AWS CLI
       run: |
@@ -25,24 +25,23 @@ jobs:
         aws configure set region us-east-1
 
     - name: Create VPC
+      id: create_vpc
       run: |
-        aws --endpoint-url=http://localhost:4566 ec2 create-vpc --cidr-block 10.0.0.0/16
+        VPC_ID=$(aws --endpoint-url=http://localhost:4566 ec2 create-vpc --cidr-block 10.0.0.0/16 --query "Vpc.VpcId" --output text)
+        echo "VPC_ID=$VPC_ID" >> $GITHUB_ENV
 
     - name: Create Subnets
       run: |
-        VPC_ID=$(aws --endpoint-url=http://localhost:4566 ec2 describe-vpcs --query "Vpcs[0].VpcId" --output text)
-        aws --endpoint-url=http://localhost:4566 ec2 create-subnet --vpc-id $VPC_ID --cidr-block 10.0.1.0/24 --availability-zone us-east-1a
-        aws --endpoint-url=http://localhost:4566 ec2 create-subnet --vpc-id $VPC_ID --cidr-block 10.0.2.0/24 --availability-zone us-east-1b
+        aws --endpoint-url=http://localhost:4566 ec2 create-subnet --vpc-id ${{ env.VPC_ID }} --cidr-block 10.0.1.0/24 --availability-zone us-east-1a
+        aws --endpoint-url=http://localhost:4566 ec2 create-subnet --vpc-id ${{ env.VPC_ID }} --cidr-block 10.0.2.0/24 --availability-zone us-east-1b
 
     - name: Create Internet Gateway
       run: |
-        VPC_ID=$(aws --endpoint-url=http://localhost:4566 ec2 describe-vpcs --query "Vpcs[0].VpcId" --output text)
         IGW_ID=$(aws --endpoint-url=http://localhost:4566 ec2 create-internet-gateway --query "InternetGateway.InternetGatewayId" --output text)
-        aws --endpoint-url=http://localhost:4566 ec2 attach-internet-gateway --vpc-id $VPC_ID --internet-gateway-id $IGW_ID
+        aws --endpoint-url=http://localhost:4566 ec2 attach-internet-gateway --vpc-id ${{ env.VPC_ID }} --internet-gateway-id $IGW_ID
 
     - name: Create EC2 Instances
       run: |
-        VPC_ID=$(aws --endpoint-url=http://localhost:4566 ec2 describe-vpcs --query "Vpcs[0].VpcId" --output text)
         PUBLIC_SUBNET_ID=$(aws --endpoint-url=http://localhost:4566 ec2 describe-subnets --query "Subnets[?CidrBlock=='10.0.1.0/24'].SubnetId" --output text)
         PRIVATE_SUBNET_ID=$(aws --endpoint-url=http://localhost:4566 ec2 describe-subnets --query "Subnets[?CidrBlock=='10.0.2.0/24'].SubnetId" --output text)
         
