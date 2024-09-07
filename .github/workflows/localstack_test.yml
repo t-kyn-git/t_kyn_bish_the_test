@@ -80,7 +80,7 @@ jobs:
     - name: Generate Architecture Diagram
       run: |
         # Create a Python script file
-        echo '
+        echo """\
 from diagrams import Diagram, Cluster
 from diagrams.aws.network import VPC, PublicSubnet, PrivateSubnet, InternetGateway
 from diagrams.aws.compute import EC2
@@ -122,13 +122,14 @@ with Diagram("AWS Infrastructure", show=False):
     lambda_func
     rds >> master_db
     rds >> replica_db
-        ' > generate_diagram.py
+        """ > generate_diagram.py
 
         # Run the Python script to generate the diagram
         python3 generate_diagram.py
 
         # Rename the output diagram if needed
         mv architecture.png architecture-diagram.png
+
 
     - name: Upload Diagram
       uses: actions/upload-artifact@v3
