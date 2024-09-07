@@ -49,6 +49,14 @@ jobs:
     # 暫定追加
     - name: Print current directory(Temporary add 2024/09/07)
       run: ls -lrt
+
+    # Lambdaのファイルがあるかの事前確認
+    - name: Verify ZIP file creation
+      run: |
+        cd terraform
+        ls -la lambda/
+        unzip -l lambda/lambda_function_payload.zip
+
     # Terraform の初期化
     - name: Initialize TFLocal
       run: |
