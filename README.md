@@ -33,4 +33,13 @@ public test
 
   * 3) Github Actionsの新規機能をお試し実行
     * プライベートリポジトリでは費用のかかる機能のお試し開発
-      * 
+
+* メモ
+  * 色々なことができそうですね
+    * Github Actions で、Localstackを動かす。
+    https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a
+    * Github ActionsでLocalstack動かす＋Terraform
+    https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2
+    * 
+
+
