@@ -39,7 +39,7 @@ jobs:
       run: |
           pip install localstack-client
           git clone https://github.com/localstack/terraform-local.git
-          ls -lrt
+          ls -lrtR
           chmod -x terraform-local/bin/tflocal
           sudo mv terraform-local/bin/tflocal terraform/tflocal
     # chmod +x tflocal-linux-amd64
