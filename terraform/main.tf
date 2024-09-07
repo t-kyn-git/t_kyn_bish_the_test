@@ -14,9 +14,16 @@ provider "aws" {
 }
 
 # データ定義
+#data "archive_file" "example_zip" {
+#  type        = "zip"
+#  source_dir  = "lambda"
+#  output_path = "lambda/lambda_function_payload.zip"
+#}
+
+# データ定義: ZIP ファイルの作成
 data "archive_file" "example_zip" {
   type        = "zip"
-  source_dir  = "lambda"
+  source_file = "lambda/index.js"   # index.js のパスを正確に指定
   output_path = "lambda/lambda_function_payload.zip"
 }
 
@@ -72,7 +79,7 @@ resource "aws_lambda_function" "lambda_function_payload" {
 }
 
 resource "aws_lambda_function_url" "lambda_function_url" {
-  function_name      = aws_lambda_function.lambda_function_payload.arn
+  function_name      = aws_lambda_function.lambda_function_payload.function_name
   authorization_type = "NONE"
 }
 
