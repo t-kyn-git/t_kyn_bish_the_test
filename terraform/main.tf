@@ -91,3 +91,14 @@ resource "aws_api_gateway_rest_api" "my_api" {
 #  role       = aws_iam_role.lambda_role.name
 #  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 #}
+
+#Output
+# VPC ID を出力する
+output "vpc_id" {
+  value = aws_vpc.my_vpc.id
+}
+
+# サブネット ID を出力する
+output "subnet_id" {
+  value = aws_subnet.my_subnet.id
+}
