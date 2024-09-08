@@ -35,12 +35,12 @@ jobs:
         docker run --rm -d -p 4566:4566 -p 4571:4571 localstack/localstack -e LAMBDA_EXECUTOR=docker
         sleep 10  # コンテナ起動待機
 
-    - name: Wait for LocalStack to be ready
-      run: |
-        until curl -s http://localhost:4571/_localstack/health | grep '"services": {"lambda": "running"}'; do
-          echo "Waiting for LocalStack..."
-          sleep 5
-        done
+    # - name: Wait for LocalStack to be ready
+    #   run: |
+    #     until curl -s http://localhost:4566/_localstack/health | grep '"services": {"lambda": "running"}'; do
+    #       echo "Waiting for LocalStack..."
+    #       sleep 5
+    #     done
 
     - name: Check Docker availability
       run: |

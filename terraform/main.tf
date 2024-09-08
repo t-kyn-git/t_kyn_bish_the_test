@@ -24,7 +24,9 @@ provider "aws" {
 data "archive_file" "example_zip" {
   type        = "zip"
   source_file = "lambda/index.js"   # index.js のパスを正確に指定
-  output_path = "lambda/lambda_function_payload.zip"
+  output_file_mode = "0666"
+  output_path = "/tmp/lambda_function_payload.zip"
+  # output_path = "lambda/lambda_function_payload.zip"
 }
 
 # VPCの作成
