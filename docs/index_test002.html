@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0 url('https://www.transparenttextures.com/patterns/polkadots.png');
+            background-size: 50px 50px; /* Adjust size of the dots */
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        h1 {
+            font-size: 2.5em;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        h2 {
+            font-size: 2em;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-top: 20px;
+        }
+        h3 {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+        h4 {
+            font-size: 1.2em;
+            margin-top: 15px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 0.9em;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            min-width: 600px; /* Ensures table doesn’t shrink too much */
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        td {
+            background-color: #fff;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        /* Media Queries for Mobile Screens */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            h3 {
+                font-size: 1.2em;
+            }
+            ul {
+                padding-left: 15px;
+            }
+            table {
+                min-width: unset; /* Removes the forced minimum width on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>t_kyn_bish_the_test</h1>
+        <h2>Public Test</h2>
+
+        <p>A module will be created to test various functions using generative AI.</p>
+
+        <h2>Objectives</h2>
+        <ul>
+            <li>In recent years, businesses have been required to undergo transformation.</li>
+            <li>One aspect of this is the increasing number of companies pushing for DX (Digital Transformation) strategies.</li>
+            <li>Alongside personal skill development in areas of expertise, there is a need to relearn new knowledge.</li>
+            <li>Speed up the trial-and-error process of system development.</li>
+        </ul>
+
+        <h2>Preconditions</h2>
+        <ul>
+            <li>Personal information is prohibited from being uploaded.</li>
+            <li>Data will be either open data or generated using Faker.</li>
+            <li>The goal is to rapidly create systems as ideas come up.</li>
+            <li>If not using Github Actions:</li>
+            <li>There may be some inappropriate language.</li>
+        </ul>
+
+        <h2>Content Being Developed</h2>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Development Area</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><strong>1) Django Application Development</strong></td>
+                    <td>
+                        <ul>
+                            <li>Develop Django applications using Visual Studio Code.</li>
+                            <li>Commit and upload to a Github repository.</li>
+                            <li>Perform functionality checks on Google Colaboratory.</li>
+                            <li>The flow for rapid development will be: Visual Studio Code → Github → Google Colaboratory.</li>
+                            <li>Specific file used on Google Colaboratory: <code>django_hogehogehogeeeeeeeeee.ipynb</code></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>2) Web Hosting Development</strong></td>
+                    <td>
+                        <ul>
+                            <li>Functionality checks for HTML, CSS, and JavaScript.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>3) Testing New Features in Github Actions</strong></td>
+                    <td>
+                        <ul>
+                            <li>Trial development of features that may incur costs in private repositories.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>4) Notes</strong></td>
+                    <td>
+                        <ul>
+                            <li>There are many possibilities:</li>
+                            <ul>
+                                <li>Running LocalStack with Github Actions.
+                                    <a href="https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a" target="_blank">https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a</a>
+                                </li>
+                                <li>Running LocalStack with Github Actions + Terraform.
+                                    <a href="https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2" target="_blank">https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2</a>
+                                </li>
+                            </ul>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Document created for testing and development purposes.</p>
+    </div>
+
+</body>
+</html>
