@@ -121,32 +121,32 @@ resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
 }
 
 # RDS マスターデータベース (MySQL)
-resource "aws_db_instance" "master" {
-  identifier              = "mysql-master-db"
-  allocated_storage       = 10
-  engine                  = "mysql"
-  engine_version          = "5.7"
-  instance_class          = "db.t2.micro"
-  username                = "admin"
-  password                = "password"
-  #db_subnet_group_name    = aws_db_subnet_group.default.name
-  skip_final_snapshot     = true
-  publicly_accessible     = true
-}
+#resource "aws_db_instance" "master" {
+#  identifier              = "mysql-master-db"
+#  allocated_storage       = 10
+#  engine                  = "mysql"
+#  engine_version          = "5.7"
+#  instance_class          = "db.t2.micro"
+#  username                = "admin"
+#  password                = "password"
+#  #db_subnet_group_name    = aws_db_subnet_group.default.name
+#  skip_final_snapshot     = true
+#  publicly_accessible     = true
+#}
 
 # RDS レプリカ
-resource "aws_db_instance" "replica" {
-  identifier              = "mysql-replica-db"
-  allocated_storage       = 10
-  engine                  = "mysql"
-  engine_version          = "5.7"
-  instance_class          = "db.t2.micro"
-  username                = "admin"
-  password                = "password"
-  #db_subnet_group_name    = aws_db_subnet_group.default.name
-  replicate_source_db     = aws_db_instance.master.id
-  publicly_accessible     = true
-}
+#resource "aws_db_instance" "replica" {
+#  identifier              = "mysql-replica-db"
+#  allocated_storage       = 10
+#  engine                  = "mysql"
+#  engine_version          = "5.7"
+#  instance_class          = "db.t2.micro"
+#  username                = "admin"
+#  password                = "password"
+#  #db_subnet_group_name    = aws_db_subnet_group.default.name
+#  replicate_source_db     = aws_db_instance.master.id
+#  publicly_accessible     = true
+#}
 
 ## RDS Subnet Group
 #resource "aws_db_subnet_group" "default" {
@@ -156,6 +156,48 @@ resource "aws_db_instance" "replica" {
 #    Name = "My RDS subnet group"
 #  }
 #}
+
+# EC2のセキュリティグループ作成（MySQL接続用）
+resource "aws_security_group" "allow_mysql" {
+  name        = "allow_mysql"
+  description = "Allow MySQL inbound traffic from local network"
+
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # 全てのIPアドレスを許可
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# EC2インスタンス作成（ローカルのMySQLに接続）
+resource "aws_instance" "mysql_client" {
+  ami                    = "ami-12345678"  # LocalStackで使用可能なAMI
+  instance_type          = "t2.micro"
+  security_groups        = [aws_security_group.allow_mysql.name]
+
+  # EC2のUser DataでMySQLに接続するためのスクリプトを設定
+  user_data = <<-EOF
+              #!/bin/bash
+              sudo apt-get update -y
+              sudo apt-get install -y mysql-client
+
+              # ローカルのMySQLに接続するためのテスト
+              mysql -h <ローカルのMySQLのIPアドレス> -u admin -ppassword -e "SHOW DATABASES;"
+              EOF
+
+  tags = {
+    Name = "MySQL-Client-EC2"
+  }
+}
+
 
 # CloudWatch メトリクス
 resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
