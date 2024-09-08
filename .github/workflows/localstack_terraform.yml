@@ -38,7 +38,7 @@ jobs:
       run: |
         docker run --rm -d -p 4566:4566 -p 4571:4571 \
           -e LAMBDA_EXECUTOR=docker \
-          -e SERVICES=lambda,ec2,vpc,s3,apigateway \
+          -e SERVICES=lambda,ec2,vpc,s3,apigateway,iam \
           -e DEBUG=1 \
           localstack/localstack
 
