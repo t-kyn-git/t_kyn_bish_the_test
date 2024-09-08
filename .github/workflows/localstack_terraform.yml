@@ -23,9 +23,13 @@ jobs:
     #   with:
     #     services: ec2, s3, apigateway, lambda
 
+    # - name: Set up LocalStack
+    #   run: |
+    #     docker run --rm -d -p 4566:4566 localstack/localstack
     - name: Set up LocalStack
       run: |
-        docker run --rm -d -p 4566:4566 localstack/localstack
+        docker run --rm -d -p 4566:4566 -p 4571:4571 localstack/localstack -e LAMBDA_EXECUTOR=docker
+        sleep 10  # コンテナ起動待機
 
     # # TFLocal のインストール
     # - name: Install TFLocal
