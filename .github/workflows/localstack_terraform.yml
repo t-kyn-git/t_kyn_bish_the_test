@@ -34,13 +34,15 @@ jobs:
       # run: |
       #   docker run --rm -d -p 4566:4566 -p 4571:4571 localstack/localstack -e LAMBDA_EXECUTOR=docker
       #   sleep 10  # コンテナ起動待機
+      #以下は外す。
+      #    -e LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR- docker-reuse} \
+
     - name: Set up LocalStack
       run: |
         docker run --rm -d -p 4566:4566 -p 4571:4571 \
           -e LAMBDA_EXECUTOR=docker \
           -e SERVICES=lambda,ec2,vpc,s3,apigateway,iam \
           -e DEBUG=1 \
-          -e LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR- docker-reuse} \
           -e DOCKER_HOST=unix:///var/run/docker.sock \
           localstack/localstack
 
