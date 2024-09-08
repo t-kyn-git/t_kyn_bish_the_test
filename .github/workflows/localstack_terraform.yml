@@ -30,10 +30,16 @@ jobs:
     # - name: Set up LocalStack
     #   run: |
     #     docker run --rm -d -p 4566:4566 localstack/localstack
+    # - name: Set up LocalStack
+      # run: |
+      #   docker run --rm -d -p 4566:4566 -p 4571:4571 localstack/localstack -e LAMBDA_EXECUTOR=docker
+      #   sleep 10  # コンテナ起動待機
     - name: Set up LocalStack
-      run: |
-        docker run --rm -d -p 4566:4566 -p 4571:4571 localstack/localstack -e LAMBDA_EXECUTOR=docker
-        sleep 10  # コンテナ起動待機
+        docker run --rm -d -p 4566:4566 -p 4571:4571 \
+          -e LAMBDA_EXECUTOR=docker \
+          -e SERVICES=lambda,ec2,vpc,s3,apigateway \
+          -e DEBUG=1 \
+          localstack/localstack
 
     # - name: Wait for LocalStack to be ready
     #   run: |
