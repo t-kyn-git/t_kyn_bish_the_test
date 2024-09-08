@@ -40,6 +40,8 @@ jobs:
           -e LAMBDA_EXECUTOR=docker \
           -e SERVICES=lambda,ec2,vpc,s3,apigateway,iam \
           -e DEBUG=1 \
+          -e LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR- docker-reuse} \
+          -e DOCKER_HOST=unix:///var/run/docker.sock \
           localstack/localstack
 
     # - name: Wait for LocalStack to be ready
