@@ -14,10 +14,19 @@ provider "aws" {
 }
 
 # データ定義
+#data "archive_file" "example_zip" {
+#  type        = "zip"
+#  source_dir  = "lambda"
+#  output_path = "lambda/lambda_function_payload.zip"
+#}
+
+# データ定義: ZIP ファイルの作成
 data "archive_file" "example_zip" {
   type        = "zip"
-  source_dir  = "lambda"
-  output_path = "lambda/lambda_function_payload.zip"
+  source_file = "lambda/index.js"   # index.js のパスを正確に指定
+  output_file_mode = "0666"
+  output_path = "/tmp/lambda_function_payload.zip"
+  # output_path = "lambda/lambda_function_payload.zip"
 }
 
 # VPCの作成
@@ -62,35 +71,40 @@ resource "aws_api_gateway_rest_api" "my_api" {
 }
 
 # Lambda 関数の作成
-#resource "aws_lambda_function" "lambda_function_payload" {
-#  function_name = "lambda_function_payload"
-#  role          = aws_iam_role.lambda_role.arn
-#  handler       = "index.handler"
-#  runtime       = "nodejs14.x"
-#  filename         = data.archive_file.example_zip.output_path
-#  source_code_hash = data.archive_file.example_zip.output_base64sha256
-#}
+resource "aws_lambda_function" "lambda_function_payload" {
+  function_name = "lambda_function_payload"
+  role          = aws_iam_role.lambda_role.arn
+	handler       = "index.handler"
+	runtime       = "nodejs14.x"
+	filename         = data.archive_file.example_zip.output_path
+	source_code_hash = data.archive_file.example_zip.output_base64sha256
+}
+
+resource "aws_lambda_function_url" "lambda_function_url" {
+  function_name      = aws_lambda_function.lambda_function_payload.function_name
+  authorization_type = "NONE"
+}
 
 # Lambda 関数の IAM ロール
-#resource "aws_iam_role" "lambda_role" {
-#  name = "lambda_role"
-#  assume_role_policy = jsonencode({
-#    "Version" : "2012-10-17",
-#    "Statement" : [{
-#      "Effect" : "Allow",
-#      "Principal" : {
-#        "Service" : "lambda.amazonaws.com"
-#      },
-#      "Action" : "sts:AssumeRole"
-#    }]
-#  })
-#}
+resource "aws_iam_role" "lambda_role" {
+	name = "lambda_role"
+	assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [{
+      "Effect" : "Allow",
+      "Principal" : {
+        "Service" : "lambda.amazonaws.com"
+      },
+      "Action" : "sts:AssumeRole"
+    }]
+  })
+}
 
 # Lambda の基本的な権限を追加
-#resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
-#  role       = aws_iam_role.lambda_role.name
-#  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-#}
+resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
 
 #Output
 # VPC ID を出力する
