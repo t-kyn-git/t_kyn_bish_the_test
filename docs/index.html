@@ -1,44 +1,102 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>うんこまーん</title>
+    <title>Test Documentation</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 20%;
+            line-height: 1.6;
+            margin: 20px;
         }
-        h1 {
-            font-size: 3em;
-            color: brown;
+        h1, h2, h3 {
+            color: #333;
         }
-        button {
-            font-size: 1.5em;
-            padding: 10px 20px;
-            background-color: brown;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        code {
+            background: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <h1>うんこまーん</h1>
-    <button onclick="displayAlert()">Click Me!</button>
-    <h3>https://t-kyn-git.github.io/t_kyn_bish_the_test/</h3>
-    <h3>https://t-kyn-git.github.io/t_kyn_bish_the_test/index2.html</h3>
-    <h3>https://t-kyn-git.github.io/t_kyn_bish_the_test/subdir/toppage.html</h3>
-    <h3></h3>
-    <h3></h3>
-    <h3></h3>
 
-    <script>
-        function displayAlert() {
-            alert("うんこまーん！");
-        }
-    </script>
+    <h1>t_kyn_bish_the_test</h1>
+    <h2>Public Test</h2>
+
+    <p>A module will be created to test various functions using generative AI.</p>
+
+    <h2>Objectives</h2>
+    <ul>
+        <li>In recent years, businesses have been required to undergo transformation.</li>
+        <li>One aspect of this is the increasing number of companies pushing for DX (Digital Transformation) strategies.</li>
+        <li>Alongside personal skill development in areas of expertise, there is a need to relearn new knowledge.</li>
+        <li>Speed up the trial-and-error process of system development.</li>
+    </ul>
+
+    <h2>Preconditions</h2>
+    <ul>
+        <li>Personal information is prohibited from being uploaded.</li>
+        <li>Data will be either open data or generated using Faker.</li>
+        <li>The goal is to rapidly create systems as ideas come up.</li>
+        <li>If not using Github Actions:</li>
+        <li>There may be some inappropriate language.</li>
+    </ul>
+
+    <h2>Content Being Developed</h2>
+
+    <h3>1) Django Application Development</h3>
+    <h4>Operation Flow</h4>
+    <ul>
+        <li>Develop Django applications using Visual Studio Code.</li>
+        <li>Commit and upload to a Github repository.</li>
+        <li>Perform functionality checks on Google Colaboratory.</li>
+        <li>The flow for rapid development will be: Visual Studio Code → Github → Google Colaboratory.</li>
+        <li>Specific file used on Google Colaboratory:
+            <code>django_hogehogehogeeeeeeeeee.ipynb</code>
+        </li>
+    </ul>
+    <h4>Applications</h4>
+    <ul>
+        <li>Utilizing open data (under consideration).</li>
+    </ul>
+
+    <h3>2) Web Hosting Development</h3>
+    <ul>
+        <li>Functionality checks for HTML, CSS, and JavaScript.</li>
+    </ul>
+
+    <h3>3) Testing New Features in Github Actions</h3>
+    <ul>
+        <li>Trial development of features that may incur costs in private repositories.</li>
+    </ul>
+
+    <h2>Notes</h2>
+    <ul>
+        <li>There are many possibilities:</li>
+        <ul>
+            <li>Running LocalStack with Github Actions.
+                <a href="https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a" target="_blank">https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a</a>
+            </li>
+            <li>Running LocalStack with Github Actions + Terraform.
+                <a href="https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2" target="_blank">https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2</a>
+            </li>
+        </ul>
+    </ul>
+
 </body>
 </html>
