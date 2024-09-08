@@ -129,7 +129,7 @@ resource "aws_db_instance" "master" {
   instance_class          = "db.t2.micro"
   username                = "admin"
   password                = "password"
-  db_subnet_group_name    = aws_db_subnet_group.default.name
+  #db_subnet_group_name    = aws_db_subnet_group.default.name
   skip_final_snapshot     = true
   publicly_accessible     = true
 }
@@ -143,7 +143,7 @@ resource "aws_db_instance" "replica" {
   instance_class          = "db.t2.micro"
   username                = "admin"
   password                = "password"
-  db_subnet_group_name    = aws_db_subnet_group.default.name
+  #db_subnet_group_name    = aws_db_subnet_group.default.name
   replicate_source_db     = aws_db_instance.master.id
   publicly_accessible     = true
 }
