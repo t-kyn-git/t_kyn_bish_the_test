@@ -210,21 +210,21 @@ resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
   statistic           = "Average"
   threshold           = "75"
 
-  dimensions = {
-    DBInstanceIdentifier = aws_db_instance.master.id
-  }
+  #dimensions = {
+  #  DBInstanceIdentifier = aws_db_instance.master.id
+  #}
 
   alarm_description = "This metric monitors RDS master DB CPU usage"
   actions_enabled   = true
 }
 
-output "rds_master_endpoint" {
-  value = aws_db_instance.master.endpoint
-}
+#output "rds_master_endpoint" {
+#  value = aws_db_instance.master.endpoint
+#}
 
-output "rds_replica_endpoint" {
-  value = aws_db_instance.replica.endpoint
-}
+#output "rds_replica_endpoint" {
+#  value = aws_db_instance.replica.endpoint
+#}
 
 output "cloudwatch_alarm_name" {
   value = aws_cloudwatch_metric_alarm.cpu_alarm.alarm_name
