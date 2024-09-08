@@ -105,3 +105,11 @@ jobs:
       run: |
         cd terraform
         tflocal output
+
+    # 出力の確認
+    - name: show TFLocal state
+      run: |
+        cd terraform
+        tflocal show
+        tflocal state list
+
