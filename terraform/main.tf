@@ -148,14 +148,14 @@ resource "aws_db_instance" "replica" {
   publicly_accessible     = true
 }
 
-# RDS Subnet Group
-resource "aws_db_subnet_group" "default" {
-  name       = "rds-subnet-group"
-  subnet_ids = ["private_subnet_db1", "private_submet_db2"]  # 実際のサブネットIDを設定
-  tags = {
-    Name = "My RDS subnet group"
-  }
-}
+## RDS Subnet Group
+#resource "aws_db_subnet_group" "default" {
+#  name       = "rds-subnet-group"
+#  subnet_ids = ["private_subnet_db1", "private_submet_db2"]  # 実際のサブネットIDを設定
+#  tags = {
+#    Name = "My RDS subnet group"
+#  }
+#}
 
 # CloudWatch メトリクス
 resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
