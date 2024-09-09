@@ -114,6 +114,17 @@ resource "aws_iam_role" "lambda_role" {
   })
 }
 
+# IAMポリシーの追加: LambdaがS3とAPI Gatewayにアクセスするためのポリシー
+resource "aws_iam_role_policy_attachment" "lambda_s3_access" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_api_gateway_access" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonAPIGatewayInvokeFullAccess"
+}
+
 # Lambda の基本的な権限を追加
 resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
   role       = aws_iam_role.lambda_role.name
@@ -175,6 +186,41 @@ resource "aws_security_group" "allow_mysql" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+# EC2用セキュリティグループ
+resource "aws_security_group" "allow_http_ssh" {
+  vpc_id = aws_vpc.main_vpc.id
+
+  # SSHアクセスを許可
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # HTTPアクセスを許可
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # 全てのアウトバウンドトラフィックを許可
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# CloudWatchログ用のポリシー
+resource "aws_iam_role_policy_attachment" "lambda_cloudwatch_logs" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
 }
 
 # EC2インスタンス作成（ローカルのMySQLに接続）
