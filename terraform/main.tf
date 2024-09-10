@@ -272,6 +272,36 @@ resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
 #  value = aws_db_instance.replica.endpoint
 #}
 
+# Route 53 ホストゾーンの作成
+resource "aws_route53_zone" "my_zone" {
+  name = var.domain_name
+}
+
+# Aレコードの作成（EC2のパブリックIPを使用）
+resource "aws_route53_record" "www" {
+  zone_id = aws_route53_zone.my_zone.zone_id
+  name    = "www"
+  type    = "A"
+  ttl     = "300"
+  records = [aws_instance.public_instance.public_ip]
+}
+
+# CNAMEレコードの作成
+resource "aws_route53_record" "cname" {
+  zone_id = aws_route53_zone.my_zone.zone_id
+  name    = "api"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["www.${var.domain_name}"]
+}
+
+# Route 53 ドメイン名の変数
+variable "domain_name" {
+  description = "The domain name for the Route 53 hosted zone"
+  type        = string
+  default     = "example.com"
+}
+
 output "cloudwatch_alarm_name" {
   value = aws_cloudwatch_metric_alarm.cpu_alarm.alarm_name
 }
