@@ -294,10 +294,6 @@ resource "aws_route53_record" "cname" {
   ttl     = "300"
   records = ["www.${var.domain_name}"]
 
-  timeouts {
-    create = "5m"
-    delete = "5m"
-  }
 }
 
 #resource "aws_route53_record" "www" {
