@@ -114,6 +114,17 @@ resource "aws_iam_role" "lambda_role" {
   })
 }
 
+# IAMポリシーの追加: LambdaがS3とAPI Gatewayにアクセスするためのポリシー
+resource "aws_iam_role_policy_attachment" "lambda_s3_access" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_api_gateway_access" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonAPIGatewayInvokeFullAccess"
+}
+
 # Lambda の基本的な権限を追加
 resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
   role       = aws_iam_role.lambda_role.name
@@ -177,6 +188,41 @@ resource "aws_security_group" "allow_mysql" {
   }
 }
 
+# EC2用セキュリティグループ
+resource "aws_security_group" "allow_http_ssh" {
+  vpc_id = aws_vpc.main_vpc.id
+
+  # SSHアクセスを許可
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # HTTPアクセスを許可
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # 全てのアウトバウンドトラフィックを許可
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# CloudWatchログ用のポリシー
+resource "aws_iam_role_policy_attachment" "lambda_cloudwatch_logs" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+}
+
 # EC2インスタンス作成（ローカルのMySQLに接続）
 resource "aws_instance" "mysql_client" {
   ami                    = "ami-12345678"  # LocalStackで使用可能なAMI
@@ -225,6 +271,50 @@ resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
 #output "rds_replica_endpoint" {
 #  value = aws_db_instance.replica.endpoint
 #}
+
+# Route 53 ホストゾーンの作成
+resource "aws_route53_zone" "my_zone" {
+  name = var.domain_name
+}
+
+# Aレコードの作成（EC2のパブリックIPを使用）
+#resource "aws_route53_record" "www" {
+#  zone_id = aws_route53_zone.my_zone.zone_id
+#  name    = "www"
+#  type    = "A"
+#  ttl     = "300"
+#  records = [aws_instance.public_instance.public_ip]
+#}
+
+# CNAMEレコードの作成
+#resource "aws_route53_record" "cname" {
+#  zone_id = aws_route53_zone.my_zone.zone_id
+#  name    = "api"
+#  type    = "CNAME"
+#  ttl     = "300"
+#  records = ["www.${var.domain_name}"]
+#
+#}
+
+#resource "aws_route53_record" "www" {
+#  zone_id = "Z1234567890"
+#  name    = "www.example.com"
+#  type    = "A"
+#  ttl     = "300"
+#  records = ["192.0.2.1"]
+#
+#  timeouts {
+#    create = "5m"
+#    delete = "5m"
+#  }
+#}
+
+# Route 53 ドメイン名の変数
+variable "domain_name" {
+  description = "The domain name for the Route 53 hosted zone"
+  type        = string
+  default     = "example.com"
+}
 
 output "cloudwatch_alarm_name" {
   value = aws_cloudwatch_metric_alarm.cpu_alarm.alarm_name
