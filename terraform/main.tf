@@ -287,14 +287,14 @@ resource "aws_route53_record" "www" {
 }
 
 # CNAMEレコードの作成
-resource "aws_route53_record" "cname" {
-  zone_id = aws_route53_zone.my_zone.zone_id
-  name    = "api"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["www.${var.domain_name}"]
-
-}
+#resource "aws_route53_record" "cname" {
+#  zone_id = aws_route53_zone.my_zone.zone_id
+#  name    = "api"
+#  type    = "CNAME"
+#  ttl     = "300"
+#  records = ["www.${var.domain_name}"]
+#
+#}
 
 #resource "aws_route53_record" "www" {
 #  zone_id = "Z1234567890"
