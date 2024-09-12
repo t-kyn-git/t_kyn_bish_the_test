@@ -293,7 +293,25 @@ resource "aws_route53_record" "cname" {
   type    = "CNAME"
   ttl     = "300"
   records = ["www.${var.domain_name}"]
+
+  timeouts {
+    create = "5m"
+    delete = "5m"
+  }
 }
+
+#resource "aws_route53_record" "www" {
+#  zone_id = "Z1234567890"
+#  name    = "www.example.com"
+#  type    = "A"
+#  ttl     = "300"
+#  records = ["192.0.2.1"]
+#
+#  timeouts {
+#    create = "5m"
+#    delete = "5m"
+#  }
+#}
 
 # Route 53 ドメイン名の変数
 variable "domain_name" {
