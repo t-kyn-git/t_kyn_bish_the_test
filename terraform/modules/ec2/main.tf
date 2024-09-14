@@ -59,13 +59,13 @@ resource "aws_security_group" "my_security_group" {
   }
 }
 
-# データソースの例（必要に応じて）
-data "aws_ami" "latest_amazon_linux" {
-  owners = ["amazon"]
-
-  most_recent = true
-
-  filters = {
-    name = "amzn2-ami-hvm-*-x86_64-gp2"
-  }
-}
+## データソースの例（必要に応じて）
+#data "aws_ami" "latest_amazon_linux" {
+#  owners = ["amazon"]
+#
+#  most_recent = true
+#
+#  filters = {
+#    name = "amzn2-ami-hvm-*-x86_64-gp2"
+#  }
+#}
