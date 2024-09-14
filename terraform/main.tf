@@ -26,6 +26,12 @@ module "network" {
   subnet_cidrs = var.subnet_cidrs
 }
 
+module "ec2" {
+  source = "./modules/ec2"
+  vpc_id = module.network.vpc_id
+  subnet_ids = module.network.subnet_ids
+}
+
 # Lambda 関数の ZIP アーカイブを作成
 data "archive_file" "example_zip" {
   type        = "zip"
