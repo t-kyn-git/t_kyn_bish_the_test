@@ -35,8 +35,8 @@ module "network" {
 #vpc_id      = module.vpc.vpc_id
 module "ec2" {
   source      = "./modules/ec2"
-  vpc_id      = aws_vpc.main_vpc.id
-  subnet_id   = aws_subnet.public_subnet.id
+  #vpc_id      = aws_vpc.main_vpc.id
+  #subnet_id   = aws_subnet.public_subnet.id
 }
 
 module "s3" {
