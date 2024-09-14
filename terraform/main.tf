@@ -1,10 +1,5 @@
 # main.tf
 
-# Providerの設定
-provider "aws" {
-  region = "us-west-2"
-}
-
 # Variablesの読み込み
 variable "vpc_cidr" {
   description = "CIDR block for the VPC"
