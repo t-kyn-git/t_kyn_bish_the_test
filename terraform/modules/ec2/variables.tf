@@ -18,12 +18,14 @@ variable "instance_type" {
   default     = "t2.micro"
 }
 
-#variable "public_subnet_id" {
-#  description = "Subnet ID for the public EC2 instance"
-#  type        = string
-#}
+variable "public_subnet_id" {
+  description = "Subnet ID for the public EC2 instance"
+  type        = string
+  default     = "10.0.1.0/24"
+}
 
-#variable "private_subnet_id" {
-#  description = "Subnet ID for the private EC2 instance"
-#  type        = string
-#}
+variable "private_subnet_id" {
+  description = "Subnet ID for the private EC2 instance"
+  type        = string
+  default     = "10.0.2.0/24"
+}
