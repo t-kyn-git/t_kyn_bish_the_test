@@ -1,16 +1,5 @@
 # main.tf
 
-# Variablesの読み込み
-variable "vpc_cidr" {
-  description = "CIDR block for the VPC"
-  type        = string
-}
-
-variable "subnet_cidr" {
-  description = "CIDR block for the subnet"
-  type        = string
-}
-
 # モジュールの読み込み
 module "resources" {
   source = "./resources"
