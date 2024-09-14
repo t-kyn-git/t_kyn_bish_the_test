@@ -75,11 +75,13 @@
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
+            table-layout: fixed; /* Prevents table from exceeding width */
         }
         th, td {
             border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
+            word-wrap: break-word; /* Allow content to break inside the cell */
         }
         th {
             background-color: #f4f4f4;
@@ -94,6 +96,25 @@
             text-align: center;
             font-size: 0.9em;
             color: #666;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            h3 {
+                font-size: 1.2em;
+            }
+            table {
+                font-size: 0.9em;
+            }
+            th, td {
+                padding: 8px;
+            }
         }
     </style>
 </head>
