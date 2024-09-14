@@ -1,12 +1,7 @@
-terraform {
-  required_version = ">= 1.0"
-  backend "local" {}
-}
-
 provider "aws" {
-  access_key                  = "mock_access_key"
-  secret_key                  = "mock_secret_key"
-  region                      = "us-east-1"
+  access_key                  = var.access_key
+  secret_key                  = var.secret_key
+  region                      = var.region
   s3_force_path_style         = true
   skip_credentials_validation = true
   skip_metadata_api_check     = true
@@ -20,83 +15,54 @@ provider "aws" {
   }
 }
 
+module "vpc" {
+  source = "./modules/vpc"
+}
+
 module "network" {
   source = "./modules/network"
-  vpc_cidr = var.vpc_cidr
-  subnet_cidrs = var.subnet_cidrs
+  vpc_cidr_block                        = "10.0.0.0/16"
+  public_subnet_cidr_block              = "10.0.1.0/24"
+  private_subnet_db1_cidr_block         = "10.0.2.0/24"
+  private_subnet_db2_cidr_block         = "10.0.3.0/24"
+  private_subnet_cidr_block             = "10.0.4.0/24"
+  public_subnet_availability_zone       = "us-east-1a"
+  private_subnet_db1_availability_zone  = "us-east-1b"
+  private_subnet_db2_availability_zone  = "us-east-1c"
+  private_subnet_availability_zone      = "us-east-1d"
 }
 
-# Lambda 関数の ZIP アーカイブを作成
-data "archive_file" "example_zip" {
-  type        = "zip"
-  source_file = "lambda/index.js"   # index.js のパスを正確に指定
-  output_path = "lambda/lambda_function_payload.zip"
+#vpc_id      = module.vpc.vpc_id
+#vpc_id      = aws_vpc.main_vpc.id
+#subnet_id   = aws_subnet.public_subnet.id
+#vpc_id      = module.network.vpc_id
+#public_subnet_id   = module.network.public_subnet_id
+#private_subnet_id   = module.network.public_subnet_id
+module "ec2" {
+  source      = "./modules/ec2"
+  vpc_id             = module.network.vpc_id
+  public_subnet_id   = module.network.public_subnet_id
+  private_subnet_id  = module.network.private_subnet_id
 }
 
-resource "aws_lambda_function" "lambda_function_payload" {
-  function_name = "lambda_function_payload"
-  role          = aws_iam_role.lambda_role.arn
-  handler       = "index.handler"
-  runtime       = "nodejs14.x"
-  filename      = data.archive_file.example_zip.output_path
-  source_code_hash = data.archive_file.example_zip.output_base64sha256
+module "s3" {
+  source = "./modules/s3"
 }
 
-resource "aws_lambda_function_url" "lambda_function_url" {
-  function_name      = aws_lambda_function.lambda_function_payload.function_name
-  authorization_type = "NONE"
+module "lambda" {
+  source      = "./modules/lambda"
+  s3_bucket   = module.s3.bucket_name
 }
 
-resource "aws_iam_role" "lambda_role" {
-  name = "lambda_role"
-  assume_role_policy = jsonencode({
-    "Version" : "2012-10-17",
-    "Statement" : [{
-      "Effect" : "Allow",
-      "Principal" : {
-        "Service" : "lambda.amazonaws.com"
-      },
-      "Action" : "sts:AssumeRole"
-    }]
-  })
+module "apigateway" {
+  source = "./modules/apigateway"
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_s3_access" {
-  role       = aws_iam_role.lambda_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+module "cloudwatch" {
+  source = "./modules/cloudwatch"
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_api_gateway_access" {
-  role       = aws_iam_role.lambda_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonAPIGatewayInvokeFullAccess"
+module "route53" {
+  source      = "./modules/route53"
+  domain_name = var.domain_name
 }
-
-resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
-  role       = aws_iam_role.lambda_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-}
-
-resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
-  alarm_name          = "cpu-utilization-high"
-  comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = "2"
-  metric_name         = "CPUUtilization"
-  namespace           = "AWS/RDS"
-  period              = "120"
-  statistic           = "Average"
-  threshold           = "75"
-  alarm_description   = "This metric monitors RDS master DB CPU usage"
-  actions_enabled     = true
-}
-
-#output "cloudwatch_alarm_name" {
-#  value = aws_cloudwatch_metric_alarm.cpu_alarm.alarm_name
-#}
-#
-#output "vpc_id" {
-#  value = module.network.vpc_id
-#}
-#
-#output "subnet_ids" {
-#  value = module.network.subnet_ids
-#}
