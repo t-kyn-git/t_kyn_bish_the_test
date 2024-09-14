@@ -1,12 +1,34 @@
-# Main Terraform configuration
+# main.tf
+
+# Providerの設定
+provider "aws" {
+  region = "us-west-2"
+}
+
+# Variablesの読み込み
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
+  type        = string
+}
+
+variable "subnet_cidr" {
+  description = "CIDR block for the subnet"
+  type        = string
+}
+
+# モジュールの読み込み
+module "resources" {
+  source = "./resources"
+
+  vpc_cidr = var.vpc_cidr
+  subnet_cidr = var.subnet_cidr
+}
+
+# 出力の定義
 output "vpc_id" {
-  value = aws_vpc.main_vpc.id
+  value = module.resources.vpc_id
 }
 
 output "subnet_id" {
-  value = aws_subnet.public_subnet.id
-}
-
-output "cloudwatch_alarm_name" {
-  value = aws_cloudwatch_metric_alarm.cpu_alarm.alarm_name
+  value = module.resources.subnet_id
 }
