@@ -1,11 +1,23 @@
-variable "vpc_cidr" {
-  description = "CIDR block for the VPC"
+variable "access_key" {
+  description = "AWS Access Key"
   type        = string
-  default    = "10.0.0.0/16"
+  default     = "mock_access_key"
 }
 
-variable "subnet_cidrs" {
-  description = "CIDR blocks for the subnets"
-  type        = list(string)
-  default     = ["10.0.1.0/24","10.0.2.0/24","10.0.3.0/24","10.0.4.0/24"]
+variable "secret_key" {
+  description = "AWS Secret Key"
+  type        = string
+  default     = "mock_secret_key"
+}
+
+variable "region" {
+  description = "AWS region"
+  type        = string
+  default     = "us-east-1"
+}
+
+variable "domain_name" {
+  description = "The domain name for Route 53 hosted zone"
+  type        = string
+  default     = "example.com"
 }
