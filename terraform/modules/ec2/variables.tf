@@ -18,4 +18,6 @@ variable "subnet_id" {
 variable "vpc_id" {
   description = "VPC ID"
   type        = string
+  default     = "10.0.0.0/16"
 }
+
