@@ -13,13 +13,13 @@ variable "instance_type" {
 variable "public_subnet_id" {
   description = "Subnet ID"
   type        = string
-  default     = "10.0.1.0/24"
+  #default     = "10.0.1.0/24"
 }
 
 variable "private_subnet_id" {
   description = "Subnet ID"
   type        = string
-  default     = "10.0.2.0/24"
+  #default     = "10.0.2.0/24"
 }
 
 variable "vpc_id" {
