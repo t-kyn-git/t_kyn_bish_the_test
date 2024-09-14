@@ -28,3 +28,24 @@ resource "aws_security_group" "allow_http_ssh" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+###EC2_INSTANCE_ADD
+resource "aws_instance" "public_instance" {
+  ami           = "ami-12345678"  # モックAMI ID
+  instance_type = "t2.micro"
+  subnet_id     = var.subnet_id
+
+  tags = {
+    Name = "PublicInstance"
+  }
+}
+
+resource "aws_instance" "private_instance" {
+  ami           = "ami-12345678"  # モックAMI ID
+  instance_type = "t2.micro"
+  subnet_id     = var.subnet_id
+
+  tags = {
+    Name = "PrivateInstance"
+  }
+}
