@@ -28,8 +28,9 @@ module "network" {
 
 module "ec2" {
   source = "./modules/ec2"
-  #vpc_id = module.network.vpc_id
-  #subnet_ids = module.network.subnet_ids
+  vpc_id = module.network.vpc_id
+  subnet_ids = module.network.subnet_ids
+  subnet_cidrs = var.subnet_cidrs
   #public_instance_ami = var.public_instance_ami
   #private_instance_ami = var.private_instance_ami
   #instance_type = var.instance_type
