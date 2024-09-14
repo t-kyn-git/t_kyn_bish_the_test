@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             background: #f0f0f0 url('https://www.transparenttextures.com/patterns/polkadots.png');
-            background-size: 50px 50px; /* Adjust size of the dots */
+            background-size: 50px 50px;
         }
         .container {
             max-width: 900px;
@@ -75,13 +75,13 @@
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
-            table-layout: fixed; /* Prevents table from exceeding width */
+            table-layout: fixed;
         }
         th, td {
             border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
-            word-wrap: break-word; /* Allow content to break inside the cell */
+            word-wrap: break-word;
         }
         th {
             background-color: #f4f4f4;
@@ -96,6 +96,26 @@
             text-align: center;
             font-size: 0.9em;
             color: #666;
+        }
+
+        /* Fade-in effect */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+        }
+
+        /* Group fade-in container */
+        .fade-in-group {
+            opacity: 0;
+            transition: opacity 1.5s ease-in;
+        }
+
+        .fade-in-group.visible {
+            opacity: 1;
         }
 
         /* Mobile Styles */
@@ -121,84 +141,109 @@
 <body>
 
     <div class="container">
-        <h1>t_kyn_bish_the_test</h1>
-        <h2>Public Test</h2>
+        <h1 id="dynamic-text"></h1>
 
-        <p>A module will be created to test various functions using generative AI.</p>
+        <!-- Fade-in group container -->
+        <div class="fade-in-group">
+            <h2>Objectives</h2>
+            <ul>
+                <li>In recent years, businesses have been required to undergo transformation.</li>
+                <li>One aspect of this is the increasing number of companies pushing for DX (Digital Transformation) strategies.</li>
+                <li>Alongside personal skill development in areas of expertise, there is a need to relearn new knowledge.</li>
+                <li>Speed up the trial-and-error process of system development.</li>
+            </ul>
 
-        <h2>Objectives</h2>
-        <ul>
-            <li>In recent years, businesses have been required to undergo transformation.</li>
-            <li>One aspect of this is the increasing number of companies pushing for DX (Digital Transformation) strategies.</li>
-            <li>Alongside personal skill development in areas of expertise, there is a need to relearn new knowledge.</li>
-            <li>Speed up the trial-and-error process of system development.</li>
-        </ul>
+            <h2>Preconditions</h2>
+            <ul>
+                <li>Personal information is prohibited from being uploaded.</li>
+                <li>Data will be either open data or generated using Faker.</li>
+                <li>The goal is to rapidly create systems as ideas come up.</li>
+                <li>If not using Github Actions:</li>
+                <li>There may be some inappropriate language.</li>
+            </ul>
 
-        <h2>Preconditions</h2>
-        <ul>
-            <li>Personal information is prohibited from being uploaded.</li>
-            <li>Data will be either open data or generated using Faker.</li>
-            <li>The goal is to rapidly create systems as ideas come up.</li>
-            <li>If not using Github Actions:</li>
-            <li>There may be some inappropriate language.</li>
-        </ul>
-
-        <h2>Content Being Developed</h2>
-        <table>
-            <tr>
-                <th>Development Area</th>
-                <th>Description</th>
-            </tr>
-            <tr>
-                <td><strong>1) Django Application Development</strong></td>
-                <td>
-                    <ul>
-                        <li>Develop Django applications using Visual Studio Code.</li>
-                        <li>Commit and upload to a Github repository.</li>
-                        <li>Perform functionality checks on Google Colaboratory.</li>
-                        <li>The flow for rapid development will be: Visual Studio Code → Github → Google Colaboratory.</li>
-                        <li>Specific file used on Google Colaboratory: <code>django_hogehogehogeeeeeeeeee.ipynb</code></li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td><strong>2) Web Hosting Development</strong></td>
-                <td>
-                    <ul>
-                        <li>Functionality checks for HTML, CSS, and JavaScript.</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td><strong>3) Testing New Features in Github Actions</strong></td>
-                <td>
-                    <ul>
-                        <li>Trial development of features that may incur costs in private repositories.</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td><strong>4) Notes</strong></td>
-                <td>
-                    <ul>
-                        <li>There are many possibilities:</li>
+            <h2>Content Being Developed</h2>
+            <table>
+                <tr>
+                    <th>Development Area</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><strong>1) Django Application Development</strong></td>
+                    <td>
                         <ul>
-                            <li>Running LocalStack with Github Actions.
-                                <a href="https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a" target="_blank">https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a</a>
-                            </li>
-                            <li>Running LocalStack with Github Actions + Terraform.
-                                <a href="https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2" target="_blank">https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2</a>
-                            </li>
+                            <li>Develop Django applications using Visual Studio Code.</li>
+                            <li>Commit and upload to a Github repository.</li>
+                            <li>Perform functionality checks on Google Colaboratory.</li>
+                            <li>The flow for rapid development will be: Visual Studio Code → Github → Google Colaboratory.</li>
+                            <li>Specific file used on Google Colaboratory: <code>django_hogehogehogeeeeeeeeee.ipynb</code></li>
                         </ul>
-                    </ul>
-                </td>
-            </tr>
-        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>2) Web Hosting Development</strong></td>
+                    <td>
+                        <ul>
+                            <li>Functionality checks for HTML, CSS, and JavaScript.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>3) Testing New Features in Github Actions</strong></td>
+                    <td>
+                        <ul>
+                            <li>Trial development of features that may incur costs in private repositories.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>4) Notes</strong></td>
+                    <td>
+                        <ul>
+                            <li>There are many possibilities:</li>
+                            <ul>
+                                <li>Running LocalStack with Github Actions.
+                                    <a href="https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a" target="_blank">https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a</a>
+                                </li>
+                                <li>Running LocalStack with Github Actions + Terraform.
+                                    <a href="https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2" target="_blank">https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2</a>
+                                </li>
+                            </ul>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 
     <div class="footer">
         <p>Document created for testing and development purposes.</p>
     </div>
 
+    <script>
+        // Display "t_kyn_bish_the_test" one character at a time every 0.2 seconds
+        const text = "t_kyn_bish_the_test";
+        const container = document.getElementById("dynamic-text");
+
+        text.split("").forEach((char, index) => {
+            setTimeout(() => {
+                container.textContent += char;
+            }, index * 200);
+        });
+
+        // Fade-in effect for the group container
+        const fadeInGroup = document.querySelector('.fade-in-group');
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    fadeInGroup.classList.add('visible');
+                    observer.unobserve(entry.target); // Stop observing once the element is visible
+                }
+            });
+        });
+
+        observer.observe(fadeInGroup);
+    </script>
 </body>
 </html>
