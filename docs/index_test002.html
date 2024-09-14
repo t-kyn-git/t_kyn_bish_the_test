@@ -71,20 +71,17 @@
         a:hover {
             text-decoration: underline;
         }
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-        }
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
-            min-width: 600px; /* Ensures table doesn’t shrink too much */
+            table-layout: fixed; /* Prevents table from exceeding width */
         }
         th, td {
             border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
+            word-wrap: break-word; /* Allow content to break inside the cell */
         }
         th {
             background-color: #f4f4f4;
@@ -101,7 +98,7 @@
             color: #666;
         }
 
-        /* Media Queries for Mobile Screens */
+        /* Mobile Styles */
         @media (max-width: 600px) {
             h1 {
                 font-size: 1.8em;
@@ -112,11 +109,11 @@
             h3 {
                 font-size: 1.2em;
             }
-            ul {
-                padding-left: 15px;
-            }
             table {
-                min-width: unset; /* Removes the forced minimum width on mobile */
+                font-size: 0.9em;
+            }
+            th, td {
+                padding: 8px;
             }
         }
     </style>
@@ -147,58 +144,56 @@
         </ul>
 
         <h2>Content Being Developed</h2>
-        <div class="table-container">
-            <table>
-                <tr>
-                    <th>Development Area</th>
-                    <th>Description</th>
-                </tr>
-                <tr>
-                    <td><strong>1) Django Application Development</strong></td>
-                    <td>
+        <table>
+            <tr>
+                <th>Development Area</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><strong>1) Django Application Development</strong></td>
+                <td>
+                    <ul>
+                        <li>Develop Django applications using Visual Studio Code.</li>
+                        <li>Commit and upload to a Github repository.</li>
+                        <li>Perform functionality checks on Google Colaboratory.</li>
+                        <li>The flow for rapid development will be: Visual Studio Code → Github → Google Colaboratory.</li>
+                        <li>Specific file used on Google Colaboratory: <code>django_hogehogehogeeeeeeeeee.ipynb</code></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>2) Web Hosting Development</strong></td>
+                <td>
+                    <ul>
+                        <li>Functionality checks for HTML, CSS, and JavaScript.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>3) Testing New Features in Github Actions</strong></td>
+                <td>
+                    <ul>
+                        <li>Trial development of features that may incur costs in private repositories.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>4) Notes</strong></td>
+                <td>
+                    <ul>
+                        <li>There are many possibilities:</li>
                         <ul>
-                            <li>Develop Django applications using Visual Studio Code.</li>
-                            <li>Commit and upload to a Github repository.</li>
-                            <li>Perform functionality checks on Google Colaboratory.</li>
-                            <li>The flow for rapid development will be: Visual Studio Code → Github → Google Colaboratory.</li>
-                            <li>Specific file used on Google Colaboratory: <code>django_hogehogehogeeeeeeeeee.ipynb</code></li>
+                            <li>Running LocalStack with Github Actions.
+                                <a href="https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a" target="_blank">https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a</a>
+                            </li>
+                            <li>Running LocalStack with Github Actions + Terraform.
+                                <a href="https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2" target="_blank">https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2</a>
+                            </li>
                         </ul>
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>2) Web Hosting Development</strong></td>
-                    <td>
-                        <ul>
-                            <li>Functionality checks for HTML, CSS, and JavaScript.</li>
-                        </ul>
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>3) Testing New Features in Github Actions</strong></td>
-                    <td>
-                        <ul>
-                            <li>Trial development of features that may incur costs in private repositories.</li>
-                        </ul>
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>4) Notes</strong></td>
-                    <td>
-                        <ul>
-                            <li>There are many possibilities:</li>
-                            <ul>
-                                <li>Running LocalStack with Github Actions.
-                                    <a href="https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a" target="_blank">https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a</a>
-                                </li>
-                                <li>Running LocalStack with Github Actions + Terraform.
-                                    <a href="https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2" target="_blank">https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2</a>
-                                </li>
-                            </ul>
-                        </ul>
-                    </td>
-                </tr>
-            </table>
-        </div>
+                    </ul>
+                </td>
+            </tr>
+        </table>
     </div>
 
     <div class="footer">
