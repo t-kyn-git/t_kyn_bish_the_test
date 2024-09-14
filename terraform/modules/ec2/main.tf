@@ -11,7 +11,7 @@ resource "aws_instance" "public_instance" {
 }
 
 resource "aws_instance" "private_instance" {
-  ami           = var.ami_id  # LocalStackで使うモックAMI ID
+  ami           = var.private_instance_ami  # LocalStackで使うモックAMI ID
   instance_type = var.instance_type
   subnet_id     = aws_subnet.private_subnet.id
 
