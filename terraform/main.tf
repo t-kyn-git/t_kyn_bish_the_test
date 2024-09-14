@@ -33,8 +33,8 @@ module "ec2" {
   #public_instance_ami = var.public_instance_ami
   #private_instance_ami = var.private_instance_ami
   #instance_type = var.instance_type
-  #public_subnet_id = module.network.public_subnet_id
-  #private_subnet_id = module.network.private_subnet_id
+  public_subnet_id = module.network.public_subnet_id
+  private_subnet_id = module.network.private_subnet_id
 }
 
 # Lambda 関数の ZIP アーカイブを作成
