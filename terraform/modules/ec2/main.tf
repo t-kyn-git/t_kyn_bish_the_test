@@ -1,7 +1,7 @@
 # EC2 インスタンスの作成（パブリックとプライベート）
 
 resource "aws_instance" "public_instance" {
-  ami           = var.ami_id  # LocalStackで使うモックAMI ID
+  ami           = var.public_instance_ami  # LocalStackで使うモックAMI ID
   instance_type = var.instance_type
   subnet_id     = aws_subnet.public_subnet.id
 
