@@ -1,28 +1,28 @@
 resource "aws_vpc" "main_vpc" {
-  cidr_block = var.vpc_cidr
-  cidr_name = var.vpc_name
+  cidr_block = var.vpc_cidr_block
 }
 
 resource "aws_subnet" "public_subnet" {
   vpc_id            = aws_vpc.main_vpc.id
-  cidr_block        = element(var.subnet_cidrs, 0)
-  availability_zone = "us-east-1a"
+  cidr_block        = var.public_subnet_cidr_block
+  availability_zone = var.public_subnet_availability_zone
 }
 
 resource "aws_subnet" "private_subnet_db1" {
   vpc_id            = aws_vpc.main_vpc.id
-  cidr_block        = element(var.subnet_cidrs, 1)
-  availability_zone = "us-east-1b"
+  cidr_block        = var.private_subnet_db1_cidr_block
+  availability_zone = var.private_subnet_db1_availability_zone
 }
 
 resource "aws_subnet" "private_subnet_db2" {
   vpc_id            = aws_vpc.main_vpc.id
-  cidr_block        = element(var.subnet_cidrs, 2)
-  availability_zone = "us-east-1c"
+  cidr_block        = var.private_subnet_db2_cidr_block
+  availability_zone = var.private_subnet_db2_availability_zone
 }
 
 resource "aws_subnet" "private_subnet" {
   vpc_id            = aws_vpc.main_vpc.id
-  cidr_block        = element(var.subnet_cidrs, 3)
-  availability_zone = "us-east-1d"
+  cidr_block        = var.private_subnet_cidr_block
+  availability_zone = var.private_subnet_availability_zone
 }
+

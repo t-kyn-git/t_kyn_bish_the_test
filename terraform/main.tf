@@ -21,6 +21,15 @@ module "vpc" {
 
 module "network" {
   source = "./modules/network"
+  vpc_cidr_block                        = "10.0.0.0/16"
+  public_subnet_cidr_block              = "10.0.1.0/24"
+  private_subnet_db1_cidr_block         = "10.0.2.0/24"
+  private_subnet_db2_cidr_block         = "10.0.3.0/24"
+  private_subnet_cidr_block             = "10.0.4.0/24"
+  public_subnet_availability_zone       = "us-east-1a"
+  private_subnet_db1_availability_zone  = "us-east-1b"
+  private_subnet_db2_availability_zone  = "us-east-1c"
+  private_subnet_availability_zone      = "us-east-1d"
 }
 
 #vpc_id      = module.vpc.vpc_id
