@@ -33,7 +33,7 @@ resource "aws_security_group" "allow_http_ssh" {
 resource "aws_instance" "public_instance" {
   ami           = "ami-12345678"  # モックAMI ID
   instance_type = "t2.micro"
-  subnet_id     = var.subnet_id
+  subnet_id     = var.public_subnet_id
 
   tags = {
     Name = "PublicInstance"
@@ -43,7 +43,7 @@ resource "aws_instance" "public_instance" {
 resource "aws_instance" "private_instance" {
   ami           = "ami-12345678"  # モックAMI ID
   instance_type = "t2.micro"
-  subnet_id     = var.subnet_id
+  subnet_id     = var.private_subnet_id
 
   tags = {
     Name = "PrivateInstance"
