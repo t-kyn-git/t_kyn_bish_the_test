@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    't_kyn_test_app.apps.SampleAppConfig', # Add
 ]
 
 MIDDLEWARE = [
