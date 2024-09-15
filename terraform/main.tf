@@ -38,6 +38,11 @@ module "ec2" {
   private_subnet_id  = module.network.private_subnet_id
 }
 
+module "securitygroup" {
+  source = "./modules/securitygroup"
+  vpc_id = module.network.vpc_id  # Pass the VPC ID from the network module
+}
+
 module "s3" {
   source = "./modules/s3"
 }
