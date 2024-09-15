@@ -1,6 +1,6 @@
-#resource "aws_vpc" "main_vpc" {
-#  cidr_block = var.vpc_cidr_block
-#}
+resource "aws_vpc" "main_vpc" {
+  cidr_block = var.vpc_cidr_block
+}
 
 resource "aws_subnet" "public_subnet" {
   vpc_id            = aws_vpc.main_vpc.id
