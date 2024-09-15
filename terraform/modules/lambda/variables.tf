@@ -3,12 +3,6 @@ variable "s3_bucket" {
   type        = string
 }
 
-#variable "function_name" {
-#  description = "The name of the Lambda function"
-#  type        = string
-#  default     = "lambda_function_payload"
-#}
-
 variable "lambda_function_name" {
   description = "Name of the Lambda function"
   type        = string
