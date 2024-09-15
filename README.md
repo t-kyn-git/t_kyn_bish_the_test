@@ -33,6 +33,8 @@ public test
 
   * 3) Github Actionsの新規機能をお試し実行
     * プライベートリポジトリでは費用のかかる機能のお試し開発
+    * Terrraform、AWSCLIでのLocalstackのIaC実装
+    * https://spacelift.io/blog/terraform-best-practices
 
 * メモ
   * 色々なことができそうですね

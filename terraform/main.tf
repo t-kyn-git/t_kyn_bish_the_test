@@ -38,6 +38,7 @@ module "network" {
 #vpc_id      = module.network.vpc_id
 #public_subnet_id   = module.network.public_subnet_id
 #private_subnet_id   = module.network.public_subnet_id
+
 module "ec2" {
   source      = "./modules/ec2"
   vpc_id             = module.network.vpc_id
