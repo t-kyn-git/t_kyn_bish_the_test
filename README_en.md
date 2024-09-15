@@ -1,7 +1,7 @@
 # t_kyn_bish_the_test
 Public Test
 
-A module will be created to test various functions using generative AI.
+A module will be created to test various functions.
 
 * Objectives
   * In recent years, businesses have been required to undergo transformation.
@@ -14,7 +14,6 @@ A module will be created to test various functions using generative AI.
   * Data will be either open data or generated using Faker.
   * The goal is to rapidly create systems as ideas come up.
   * If not using Github Actions:
-  * There may be some inappropriate language.
 
 * Content Being Developed
   * 1) Django Application Development
