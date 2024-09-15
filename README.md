@@ -42,6 +42,11 @@ public test
     https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a
     * Github ActionsでLocalstack動かす＋Terraform
     https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2
-    * 
+    * https://qiita.com/zero_046/items/f9641f4ef28f0783700e
+    →書き方参考
+    * https://qiita.com/WebEngrChild/items/e5e3031d93158507cd5d
+    →Terraformを使う前に見ると少し理解が深まった。
+      Providers、Resources、Variables、Outputs、Data Sources、Moduleは把握したほうがよさそう。
+      Functionsは追々挙動を確認する。
 
 

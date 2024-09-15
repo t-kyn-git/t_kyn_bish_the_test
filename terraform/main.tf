@@ -1,20 +1,3 @@
-provider "aws" {
-  access_key                  = var.access_key
-  secret_key                  = var.secret_key
-  region                      = var.region
-  s3_force_path_style         = true
-  skip_credentials_validation = true
-  skip_metadata_api_check     = true
-  endpoints {
-    ec2            = "http://localhost:4566"
-    s3             = "http://localhost:4566"
-    apigateway     = "http://localhost:4566"
-    lambda         = "http://localhost:4566"
-    rds            = "http://localhost:4566"
-    cloudwatch     = "http://localhost:4566"
-  }
-}
-
 module "vpc" {
   source = "./modules/vpc"
 }
@@ -23,19 +6,15 @@ module "network" {
   source = "./modules/network"
 }
 
-
-#vpc_id      = module.vpc.vpc_id
-#vpc_id      = aws_vpc.main_vpc.id
-#subnet_id   = aws_subnet.public_subnet.id
-#vpc_id      = module.network.vpc_id
-#public_subnet_id   = module.network.public_subnet_id
-#private_subnet_id   = module.network.public_subnet_id
-
 module "ec2" {
   source      = "./modules/ec2"
-  vpc_id             = module.vpc.vpc_id
   public_subnet_id   = module.network.public_subnet_id
   private_subnet_id  = module.network.private_subnet_id
+}
+
+module "securitygroup" {
+  source = "./modules/securitygroup"
+  vpc_id = module.network.vpc_id  # Pass the VPC ID from the network module
 }
 
 module "s3" {
