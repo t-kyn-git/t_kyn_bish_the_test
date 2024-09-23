@@ -113,3 +113,7 @@ jobs:
         tflocal show
         tflocal state list
 
+    # 出力の確認
+    - name: show docker ps
+      run: |
+        docker ps -a
