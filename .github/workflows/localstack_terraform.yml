@@ -124,8 +124,8 @@ jobs:
 
     - name: Configure AWS CLI
       run: |
-        aws configure set aws_access_key_id test
-        aws configure set aws_secret_access_key test
+        aws configure set aws_access_key_id mock_secret_key
+        aws configure set aws_secret_access_key mock_secret_key
         aws configure set region us-east-1
 
 
