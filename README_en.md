@@ -30,6 +30,7 @@ A module will be created to test various functions.
   * 2) Web Hosting Development
     * Functionality checks for HTML, CSS, and JavaScript.
     * Use as an album server (**Currently working on acclaim**)
+      python content/t_kyn_test_app/manage_t_kyn.py runserver
 
   * 3) Testing New Features in Github Actions
     * Trial development of features that may incur costs in private repositories.
