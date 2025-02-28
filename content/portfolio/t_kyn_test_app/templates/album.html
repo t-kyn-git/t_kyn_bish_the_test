@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アルバム</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>デジタルアルバム</h1>
+    <div class="photo-grid">
+        {% for photo in photos %}
+        <div class="photo">
+            <img src="{{ photo.image.url }}" alt="Photo">
+            <p>Uploaded by: {{ photo.owner.username }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
