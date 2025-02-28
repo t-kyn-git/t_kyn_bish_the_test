@@ -24,6 +24,8 @@ public test
         * django_hogehogehogeeeeeeeeee.ipynb
     * 応用
       * オープンデータ活用（検討中）
+      * アルバムサーバとしての活用(**絶賛取組中**)
+        python content/t_kyn_test_app/manage_t_kyn.py runserver
 
   * 2) Webホスティング開発
     * HTML、CSS、Javascriptの動作確認
