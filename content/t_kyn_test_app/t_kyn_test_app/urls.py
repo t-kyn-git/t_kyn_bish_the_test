@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include   # Add
-from album.views import AlbumView  # ← インポートを追加
+#from album.views import AlbumView  # ← インポートを追加
 
 urlpatterns = [
     #path('sample_app/', include('sample_app.urls')),   # Add
     path('admin/', admin.site.urls),
-    path('album/', AlbumView.as_view(), name='album'),
+    #path('album/', AlbumView.as_view(), name='album'),
+    path('album/', include('album.urls')),
 ]
