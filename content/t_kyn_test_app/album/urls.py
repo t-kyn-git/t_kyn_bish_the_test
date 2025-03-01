@@ -17,9 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include   # Add
 from .views import AlbumView  # ← `.` をつける
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    #path('sample_app/', include('sample_app.urls')),   # Add
-    #path('admin/', admin.site.urls),
-    path('', AlbumView.as_view(), name='album'), # Add
+    path('', AlbumView.as_view(), name='album'),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
+
+# メディアファイルの提供設定
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
