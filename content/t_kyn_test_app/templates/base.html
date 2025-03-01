@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}サイト名{% endblock %}</title>
 </head>
+<script>
+    window.addEventListener("beforeunload", function() {
+        navigator.sendBeacon("{% url 'logout' %}");
+    });
+</script>
 <body>
     <header>
         <h1>サイト共通ヘッダー</h1>

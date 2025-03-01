@@ -38,6 +38,7 @@ urlpatterns = [
     path('album/', include('album.urls')),
     path('', home_view, name='home'),  # ここを追加
     path('accounts/profile/', profile_redirect, name='profile'),
+    path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),
 ]
 
 if settings.DEBUG:
