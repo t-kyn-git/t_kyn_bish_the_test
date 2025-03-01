@@ -13,9 +13,15 @@
         {% for photo in photos %}
         <div class="photo">
             <img src="{{ photo.image.url }}" alt="Photo">
-            <p>Uploaded by: {{ photo.owner.username }}</p>
+            <p>Uploaded User: {{ photo.owner.username }}</p>
+            <p>ImageName: {{ photo.image.name }}</p>
+            <p>Uploaded Date: {{ photo.uploaded_at }}</p>
         </div>
         {% endfor %}
     </div>
 </body>
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">ログアウト</button>
+</form>
 </html>

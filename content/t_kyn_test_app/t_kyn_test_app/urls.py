@@ -15,21 +15,31 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include   # Add
 #from album.views import AlbumView  # ← インポートを追加
 from django.http import HttpResponse  # ← ここを追加
-from django.shortcuts import render  # ← render をインポート
+from django.shortcuts import render,redirect
+from django.contrib.auth import views as auth_views
 
 # シンプルなトップページビュー
 def home_view(request):
     #return HttpResponse("Welcome to the Digital Album!")
     return render(request, 'index.html')  # ← `index.html` を表示する
 
+def profile_redirect(request):
+    return redirect('/album/')
 
 urlpatterns = [
-    #path('sample_app/', include('sample_app.urls')),   # Add
     path('admin/', admin.site.urls),
     #path('album/', AlbumView.as_view(), name='album'),
+    path('accounts/', include('django.contrib.auth.urls')),  # 認証URLを追加
     path('album/', include('album.urls')),
     path('', home_view, name='home'),  # ここを追加
+    path('accounts/profile/', profile_redirect, name='profile'),
+    path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

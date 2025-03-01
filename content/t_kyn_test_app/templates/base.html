@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}サイト名{% endblock %}</title>
+</head>
+<script>
+    window.addEventListener("beforeunload", function() {
+        navigator.sendBeacon("{% url 'logout' %}");
+    });
+</script>
+<body>
+    <header>
+        <h1>サイト共通ヘッダー</h1>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>フッター</p>
+    </footer>
+</body>
+</html>
