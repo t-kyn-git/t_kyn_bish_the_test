@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アルバム</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>デジタルアルバム</h1>
+    <div class="photo-grid">
+        {% for photo in photos %}
+        <div class="photo">
+            <img src="{{ photo.image.url }}" alt="Photo">
+            <p>Uploaded User: {{ photo.owner.username }}</p>
+            <p>ImageName: {{ photo.image.name }}</p>
+            <p>Uploaded Date: {{ photo.uploaded_at }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">ログアウト</button>
+</form>
+</html>
