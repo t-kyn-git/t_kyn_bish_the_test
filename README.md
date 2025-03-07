@@ -29,6 +29,10 @@ public test
           * pip install django
         * python content/t_kyn_test_app/manage_t_kyn.py runserver
           * pythonアプリケーション実行
+      * チャット（建設中）
+      * Todo管理機能追加（建設中）
+      * お絵描きアプリ（建設中）
+      * スプレッドシート作成機能追加（建設中）
 
   * 2) Webホスティング開発
     * HTML、CSS、Javascriptの動作確認
