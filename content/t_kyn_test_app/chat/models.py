@@ -1,10 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Chat(models.Model):
-    image = models.ImageField(upload_to='photos/')
-    uploaded_at = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+class Message(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.owner.username} - {self.image.name}"
+        return f"{self.user.username}: {self.text[:30]}"

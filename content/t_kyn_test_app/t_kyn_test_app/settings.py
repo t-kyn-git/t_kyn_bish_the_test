@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     't_kyn_test_app.apps.TKynTestAppConfig', # Add
     'album', # Add
+    'chat', # Add
+    'todolist', # Add
 ]
 
 MIDDLEWARE = [

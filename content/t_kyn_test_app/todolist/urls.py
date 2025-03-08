@@ -16,12 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include   # Add
-from .views import AlbumView  # ← `.` をつける
+from .views import todolist_view  # ← `.` をつける
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', AlbumView.as_view(), name='album'),
+    path("", todolist_view, name="todolist"),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
 

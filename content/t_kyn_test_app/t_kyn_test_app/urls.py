@@ -39,6 +39,8 @@ urlpatterns = [
     path('', home_view, name='home'),  # ここを追加
     path('accounts/profile/', profile_redirect, name='profile'),
     path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path('chat/', include('chat.urls')),
+    path('todolist/', include('todolist.urls')),
 ]
 
 if settings.DEBUG:
