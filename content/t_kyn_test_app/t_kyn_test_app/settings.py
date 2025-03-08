@@ -133,5 +133,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-# 3分でセッションを無効化（秒単位）
-SESSION_COOKIE_AGE = 180
+# 10分でセッションを無効化（秒単位）
+SESSION_COOKIE_AGE = 600

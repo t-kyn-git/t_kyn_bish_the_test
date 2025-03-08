@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
     <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+    <!-- <meta http-equiv="refresh" content="5"> -->
 </head>
 <body>
     <h1>Chat Room</h1>
+    this is the t_kyn chat room.
     <!-- <form method="POST"> -->
         <!-- {% csrf_token %} -->
         <!-- <input type="text" name="message" class="message-input" placeholder="メッセージを入力..."> -->
@@ -19,7 +21,7 @@
         <div class="chat-box">
             {% for message in messages %}
                 <div class="message {% if message.is_self %}self{% else %}other{% endif %}">
-                    <p class="message-text"><strong>{{ message.user.username }}</strong>:{{ message.text|linebreaksbr }}</p>
+                    <p class="message-text"><strong>{{ message.user.username }}</strong>: {{ message.text|linebreaksbr }}</p>
                     <span class="timestamp">{{ message.created_at }}</span>
                 </div>
             {% endfor %}
@@ -39,6 +41,8 @@
     <script>
         const chatContainer = document.querySelector('.chat-container');
         chatContainer.scrollTop = chatContainer.scrollHeight; // 最新のメッセージにスクロール
+        const chatBox = document.querySelector('.chat-box');
+        chatBox.scrollTop = chatBox.scrollHeight; // 最新のメッセージにスクロール
     </script>
     <a href="/">Home</a>
 </body>
