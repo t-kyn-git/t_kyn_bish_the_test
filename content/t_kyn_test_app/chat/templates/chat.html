@@ -1,23 +1,41 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
 </head>
 <body>
     <h1>Chat Room</h1>
+    <!-- <form method="POST"> -->
+        <!-- {% csrf_token %} -->
+        <!-- <input type="text" name="message" class="message-input" placeholder="メッセージを入力..."> -->
+        <!-- <input type="text" name="message" class="message-input" placeholder="メッセージを入力..." required>
+        <button type="submit" class="send-btn">送信</button>
+    </form> -->
+    <div class="chat-container">
+        <div class="chat-box">
+            {% for message in messages %}
+                <div class="message {% if message.is_self %}self{% else %}other{% endif %}">
+                    <p class="message-text"><strong>{{ message.user.username }}</strong>:{{ message.text }}</p>
+                    <span class="timestamp">{{ message.created_at }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
     <form method="POST">
         {% csrf_token %}
-        <input type="text" name="text" placeholder="Type a message..." required>
-        <button type="submit">Send</button>
+        <input type="text" name="text" class="message-input" placeholder="Type a message..." required>
+        <button type="submit" class="send-btn">Send</button>
     </form>
-
-    <ul>
-        {% for message in messages %}
-            <li>{{ message.user.username }}: {{ message.text }} ({{ message.created_at }})</li>
-        {% endfor %}
-    </ul>
-
+    <!-- <form method="POST">
+        {% csrf_token %} -->
+        <!-- <input type="text" name="message" class="message-input" placeholder="メッセージを入力..."> -->
+        <!-- <input type="text" name="message" class="message-input" placeholder="メッセージを入力..." required>
+        <button type="submit" class="send-btn">送信</button> -->
+    <!-- </form> -->
     <a href="/">Home</a>
 </body>
 </html>

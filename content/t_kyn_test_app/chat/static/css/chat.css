@@ -1,0 +1,142 @@
+body {
+    background-color: #e7d03c;
+    font-family: Arial, sans-serif;
+}
+
+.chat-box {
+    max-height: 1000px; /* 高さ制限 */
+    overflow-y: auto;  /* 縦スクロールを可能に */
+    padding: 10px;
+    border: 1px solid #f7ef09;
+    background: rgb(255, 232, 131);
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 400px; /* スクロール可能に */
+    overflow-y: auto;
+}
+
+.message {
+    position: relative;
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 1em;
+    word-wrap: break-word;
+    border: 1px solid #6a61f1f4;
+    background: rgb(111, 246, 242);
+}
+
+/* .message {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    border: 1px solid #8ff120;
+    background: rgb(111, 246, 242);
+} */
+
+.message .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.message .text {
+    max-width: 60%;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+/* 自分のコメント（右側） */
+.message.self {
+    align-self: flex-end;
+    color: #85f331;
+    text-align: right;
+    background: #84e936;
+}
+
+/* 他人のコメント（左側） */
+.message.other {
+    align-self: flex-start;
+    background-color: #f1f1f1;
+    text-align: left;
+}
+
+/* 吹き出しの三角形 */
+.message::after {
+    content: "";
+    position: absolute;
+    border-style: solid;
+    display: block;
+    width: 0;
+}
+
+/* 自分の吹き出し（三角形） */
+.message.self::after {
+    border-width: 10px 0 10px 10px;
+    border-color: transparent transparent transparent #84e936;
+    right: -10px;
+    top: 10px;
+}
+
+/* 他人の吹き出し（三角形） */
+.message.other::after {
+    border-width: 10px 10px 10px 0;
+    border-color: transparent #f1f1f1 transparent transparent;
+    left: -10px;
+    top: 10px;
+}
+
+/* .message-form {
+    display: flex;
+    padding: 10px;
+    background: white;
+}
+
+.message-form input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.message-form button {
+    margin-left: 10px;
+    padding: 8px 15px;
+    border: none;
+    background: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+} */
+
+/* タイムスタンプのスタイル */
+.timestamp {
+    font-size: 10px;
+    color: gray;
+    display: block;
+    margin-top: 5px;
+}
+
+/* 入力フォーム */
+.message-input {
+    width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* 送信ボタン */
+.send-btn {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
