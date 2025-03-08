@@ -44,18 +44,6 @@
         const chatBox = document.querySelector('.chat-box');
         chatBox.scrollTop = chatBox.scrollHeight; // 最新のメッセージにスクロール
     </script>
-    <!-- <script> -->
-        <!-- function fetchMessages() { -->
-            <!-- fetch("{% url 'chat_messages' %}")  // サーバーから最新メッセージ取得 -->
-                <!-- .then(response => response.text()) -->
-                <!-- .then(html => { -->
-                    <!-- document.getElementById("chat-box").innerHTML = html;  // 更新 -->
-                <!-- }) -->
-                <!-- .catch(error => console.error("エラー:", error)); -->
-        <!-- } -->
-
-        <!-- setInterval(fetchMessages, 3000);  // 3秒ごとに取得 -->
-    <!-- </script> -->
     <a href="/">Home</a>
 </body>
 </html>
