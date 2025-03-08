@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
     <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+    <!-- <meta http-equiv="refresh" content="5"> -->
 </head>
 <body>
     <h1>Chat Room</h1>
+    this is the t_kyn chat room.
     <!-- <form method="POST"> -->
         <!-- {% csrf_token %} -->
         <!-- <input type="text" name="message" class="message-input" placeholder="メッセージを入力..."> -->
@@ -41,8 +43,19 @@
         chatContainer.scrollTop = chatContainer.scrollHeight; // 最新のメッセージにスクロール
         const chatBox = document.querySelector('.chat-box');
         chatBox.scrollTop = chatBox.scrollHeight; // 最新のメッセージにスクロール
+    </script>
+    <!-- <script> -->
+        <!-- function fetchMessages() { -->
+            <!-- fetch("{% url 'chat_messages' %}")  // サーバーから最新メッセージ取得 -->
+                <!-- .then(response => response.text()) -->
+                <!-- .then(html => { -->
+                    <!-- document.getElementById("chat-box").innerHTML = html;  // 更新 -->
+                <!-- }) -->
+                <!-- .catch(error => console.error("エラー:", error)); -->
+        <!-- } -->
 
-</script>
+        <!-- setInterval(fetchMessages, 3000);  // 3秒ごとに取得 -->
+    <!-- </script> -->
     <a href="/">Home</a>
 </body>
 </html>

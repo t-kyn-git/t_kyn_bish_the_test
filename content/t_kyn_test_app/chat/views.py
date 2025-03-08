@@ -17,7 +17,16 @@ def chat_view(request):
 
     for message in messages:
         message.is_self = message.user == request.user  # 自分のメッセージかどうかを判定
-        
+
     #debugotameshi
     # print(messages)
     return render(request, "chat.html", {"messages": messages})
+    # return render(request, "chat_messages.html", {"messages": messages})
+
+# @login_required
+# def chat_messages(request):
+#     messages = Message.objects.order_by("created_at")
+#     return render(request, "chat_messages.html", {"messages": messages})
+# def chat_messages(request):
+#     messages = Message.objects.order_by("created_at")
+#     return render(request, "chat_messages.html", {"messages": messages})

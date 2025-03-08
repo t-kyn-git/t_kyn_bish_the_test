@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("", chat_view, name="chat"),
     path('accounts/', include('django.contrib.auth.urls')),
+    # path("chat/messages/", chat_messages, name="chat_messages"),  # メッセージ取得
 ]
 
 # メディアファイルの提供設定
