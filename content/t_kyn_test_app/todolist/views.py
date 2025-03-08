@@ -1,14 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
-from .models import Photo
+from .models import Task
 
-@method_decorator(login_required, name='dispatch')
-class AlbumView(TemplateView):
-    template_name = "album.html"
+@login_required
+def todolist_view(request):
+    if request.method == "POST":
+        title = request.POST.get("title")
+        if title:
+            Task.objects.create(user=request.user, title=title)
+        return redirect("todolist")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['photos'] = Photo.objects.all().order_by('-uploaded_at')
-        return context
+    tasks = Task.objects.filter(user=request.user).order_by("-created_at")
+    return render(request, "todolist.html", {"tasks": tasks})
