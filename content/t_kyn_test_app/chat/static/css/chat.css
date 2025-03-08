@@ -52,6 +52,7 @@ body {
     margin-right: 10px;
     border: 1px solid #4aa96df4;
     background-color: rgb(147, 226, 102);
+    position: relative;
 }
 
 .message-text {
@@ -64,16 +65,16 @@ body {
 }
 
 /* 自分のコメント（右側） */
-.message-self {
+.message.self {
     align-self: flex-end;
-    color: #85f331;
+    color: #2331e9;
     margin-left: auto; /* 自分のメッセージは右側 */
     text-align: right;
     background-color: #84e936;
 }
 
 /* 他人のコメント（左側） */
-.message-other {
+.message.other {
     align-self: flex-start;
     background-color: #f1f1f1;
     margin-right: auto; /* 他のユーザーのメッセージは左側 */
@@ -90,7 +91,7 @@ body {
 }
 
 /* 自分の吹き出し（三角形） */
-.message-self::after {
+.message.self::after {
     border-width: 10px 0 10px 10px;
     border-color: transparent transparent transparent #84e936;
     right: -10px;
@@ -98,7 +99,7 @@ body {
 }
 
 /* 他人の吹き出し（三角形） */
-.message-other::after {
+.message.other::after {
     border-width: 10px 10px 10px 0;
     border-color: transparent #f1f1f1 transparent transparent;
     left: -10px;

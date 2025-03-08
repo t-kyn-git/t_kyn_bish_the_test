@@ -14,6 +14,10 @@ def chat_view(request):
         return redirect("chat")
 
     messages = Message.objects.order_by("created_at")
+
+    for message in messages:
+        message.is_self = message.user == request.user  # 自分のメッセージかどうかを判定
+        
     #debugotameshi
-    print(messages)
+    # print(messages)
     return render(request, "chat.html", {"messages": messages})
