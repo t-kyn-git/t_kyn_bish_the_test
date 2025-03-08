@@ -19,10 +19,12 @@ from django.urls import path, include   # Add
 from .views import todolist_view  # ← `.` をつける
 from django.conf import settings
 from django.conf.urls.static import static
+# from .views import toggle_task
 
 urlpatterns = [
     path("", todolist_view, name="todolist"),
     path('accounts/', include('django.contrib.auth.urls')),
+    # path('toggle/<int:task_id>/', toggle_task, name='toggle_task'),
 ]
 
 # メディアファイルの提供設定

@@ -9,7 +9,15 @@
     <form method="POST">
         {% csrf_token %}
         <input type="text" name="title" placeholder="New task" required>
-        <button type="submit">Add</button>
+        <!-- <button type="submit">Add</button> -->
+        <label>
+            <input type="radio" name="completed" value="true"> ✅ 完了
+        </label>
+        <label>
+            <input type="radio" name="completed" value="false" checked> ❌ 未完了
+        </label>
+    
+        <button type="submit">タスク作成</button>
     </form>
 
     <ul>
@@ -17,6 +25,8 @@
             <li>{{ task.title }} - {% if task.completed %}✅{% else %}❌{% endif %}</li>
         {% endfor %}
     </ul>
+
+
 
     <a href="/">Home</a>
 </body>
