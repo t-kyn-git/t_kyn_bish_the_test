@@ -56,6 +56,7 @@ body {
 .message.self {
     align-self: flex-end;
     color: #85f331;
+    margin-left: auto; /* 自分のメッセージは右側 */
     text-align: right;
     background: #84e936;
 }
@@ -64,6 +65,7 @@ body {
 .message.other {
     align-self: flex-start;
     background-color: #f1f1f1;
+    margin-right: auto; /* 他のユーザーのメッセージは左側 */
     text-align: left;
 }
 
