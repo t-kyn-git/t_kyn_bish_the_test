@@ -34,10 +34,14 @@ A module will be created to test various functions.
           * pip install django
         * python content/t_kyn_test_app/manage_t_kyn.py runserver
           * execute the python applications.
-    * chat tool (under constructions)
-    * Todo management  (under constructions)
-    * dwawing tool  (under constructions)
-    * spreadsheet making tool  (under constructions)
+    * chat tool (almost ✅)
+      * Not probably realtime message exchange
+    * Todo management（✅）
+      * title and text descriptions.
+    * Map Location Recording（✅）
+    * Drawing tool (❌)
+    * spreadsheet making tool (❌)
+    * stock invest analyze tool (❌)
   * 3) Testing New Features in Github Actions
     * Trial development of features that may incur costs in private repositories.
 
