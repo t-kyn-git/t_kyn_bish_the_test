@@ -28,7 +28,9 @@
         {% for task in tasks %}
             <li onclick="toggleDescription({{ task.id }})" style="cursor: pointer;">
                 {{ task.title }} - {% if task.completed %}✅{% else %}❌{% endif %}</li>
-            <p id="desc-{{ task.id }}" class="description" style="display: none;">{{ task.description }}</p>
+            <p id="desc-{{ task.id }}" class="description" style="display: none;">
+                {{ task.description|linebreaksbr }}
+            </p>
         {% endfor %}
         
     </ul>
