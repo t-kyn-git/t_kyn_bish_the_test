@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>OpenStreetMap ピン留め</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var map = L.map('map').setView([35.6895, 139.6917], 10); // 東京
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            {% for location in locations %}
+                L.marker([{{ location.latitude }}, {{ location.longitude }}])
+                    .addTo(map)
+                    .bindPopup("{{ location.name }}");
+            {% endfor %}
+
+            map.on('click', function(e) {
+                document.getElementById('latitude').value = e.latlng.lat;
+                document.getElementById('longitude').value = e.latlng.lng;
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>OpenStreetMap ピン留め</h1>
+    <div id="map" style="width: 600px; height: 400px;"></div>
+
+    <h2>地点を追加</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="name">地点名:</label>
+        <input type="text" name="name" required>
+        <label for="latitude">緯度:</label>
+        <input type="text" id="latitude" name="latitude" readonly required>
+        <label for="longitude">経度:</label>
+        <input type="text" id="longitude" name="longitude" readonly required>
+        <button type="submit">追加</button>
+    </form>
+
+    <h2>保存された地点</h2>
+    <ul>
+        {% for location in locations %}
+            <li>{{ location.name }} - ({{ location.latitude }}, {{ location.longitude }})</li>
+        {% endfor %}
+    </ul>
+</body>
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">ログアウト</button>
+</form>
+</html>

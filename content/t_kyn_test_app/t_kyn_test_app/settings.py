@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'album', # Add
     'chat', # Add
     'todolist', # Add
+    'location', # Add
 ]
 
 MIDDLEWARE = [

@@ -47,4 +47,8 @@
     </script>
     <a href="/">Home</a>
 </body>
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">ログアウト</button>
+</form>
 </html>
