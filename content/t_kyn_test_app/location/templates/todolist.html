@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List</title>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="New task" required>
+        <!-- <button type="submit">Add</button> -->
+
+        <label for="description">詳細:</label>
+        <textarea id="description" name="description" placeholder="タスクの詳細を入力" rows="4"></textarea>
+    
+        <label>
+            <input type="radio" name="completed" value="true"> ✅ 完了
+        </label>
+        <label>
+            <input type="radio" name="completed" value="false" checked> ❌ 未完了
+        </label>
+    
+        <button type="submit">タスク作成</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+            <li onclick="toggleDescription({{ task.id }})" style="cursor: pointer;">
+                {{ task.title }} - {% if task.completed %}✅{% else %}❌{% endif %}</li>
+            <p id="desc-{{ task.id }}" class="description" style="display: none;">
+                {{ task.description|linebreaksbr }}
+            </p>
+        {% endfor %}
+        
+    </ul>
+
+    <script>
+        function toggleDescription(taskId) {
+            var desc = document.getElementById("desc-" + taskId);
+            if (desc.style.display === "none") {
+                desc.style.display = "block";
+            } else {
+                desc.style.display = "none";
+            }
+        }
+    </script>
+
+
+    <a href="/">Home</a>
+</body>
+</html>
