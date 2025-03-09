@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spreadsheet</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            min-width: 80px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable@11.1.0/dist/handsontable.full.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/handsontable@11.1.0/dist/handsontable.full.min.js"></script>
+</head>
+<body>
+    <h2>スプレッドシート</h2>
+    <div id="spreadsheet"></div>
+    <!-- <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Column 1</th>
+            <th>Column 2</th>
+            <th>Text</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+            <td>{{ row.id }}</td>
+            <td>{{ row.col1 }}</td>
+            <td>{{ row.col2 }}</td>
+            <td>{{ row.text }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No data available</td></tr>
+        {% endfor %}
+    </table> -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th></th> <!-- 左上の空白セル -->
+                {% for col_num in table_data.0|length|default:0|range %}
+                    <th>{{ col_num|add:1 }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            <!-- {% for row in table_data %} -->
+            {% for row_num, row in table_data|enumerate %}
+            <tr>
+                <th>{{ row_num|add:1 }}</th> <!-- 行番号 -->
+                {% for cell in row %}
+                <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            
+            {% for row_num in row_range %}
+            <tr>
+                <th>{{ row_num }}</th> <!-- 行番号 -->
+                {% for cell in table_data|default:[]|slice:":col_range|length" %}
+                    <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button id="saveBtn">保存</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const container = document.getElementById("spreadsheet");
+            const hot = new Handsontable(container, {
+                data: [],
+                colHeaders: ["A", "B", "C", "D", "E"],
+                rowHeaders: true,
+                minRows: 10,
+                minCols: 5,
+                minSpareRows: 1, // 新規行を自動追加
+                contextMenu: true, // 右クリックメニュー
+                licenseKey: "non-commercial-and-evaluation"
+            });
+
+            // データ取得
+            fetch("/api/spreadsheet/")
+                .then(response => response.json())
+                .then(data => {
+                    const gridData = Array.from({ length: 10 }, () => Array(5).fill(""));  // 空の2D配列
+                    data.data.forEach(item => {
+                        gridData[item.row][item.column] = item.value;
+                    });
+                    hot.loadData(gridData);
+                });
+
+            // 保存ボタンの処理
+            document.getElementById("saveBtn").addEventListener("click", function() {
+                fetch("/api/spreadsheet/save/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "X-CSRFToken": "{{ csrf_token }}" },
+                    body: JSON.stringify({ spreadsheet: hot.getData() })
+                }).then(response => response.json())
+                  .then(data => alert("保存しました！"));
+            });
+        });
+    </script>
+</body>
+</html>

@@ -42,6 +42,7 @@ urlpatterns = [
     path('chat/', include('chat.urls')),
     path('todolist/', include('todolist.urls')),
     path('location/', include('location.urls')),
+    path('spreadsheet/', include('spreadsheet.urls')),
 ]
 
 if settings.DEBUG:
