@@ -14,10 +14,9 @@
             padding: 8px;
             text-align: left;
             min-width: 80px;
-            background-color: #aad736;
         }
         th {
-            background-color: #aad736;
+            background-color: #f2f2f2;
         }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable@11.1.0/dist/handsontable.full.min.css">
@@ -26,15 +25,26 @@
 <body>
     <h2>スプレッドシート</h2>
     <div id="spreadsheet"></div>
-    <table>
-        <tbody>
-            {% for row in table_data %}
+    <table border="1">
+        <thead>
             <tr>
-                <td>{{ forloop.counter }}</td>
-                {% for cell in row %}
-                <td>{{ cell }}</td>
+                <th>#</th>
+                {% for col_num in col_range %}
+                    <th>{{ col_num }}</th>
                 {% endfor %}
             </tr>
+        </thead>
+        <tbody>
+            <!-- 行データの表示 -->
+            {% for row_num in row_range %}
+                <tr>
+                    <td>{{ row_num }}</td>
+                    {% for col_num in col_range %}
+                        <!-- 各セルに対応するデータを表示 -->
+                        <!-- <td>{{ table_data[row_num][col_num] }}</td> -->
+                        {% for cell in table_data|default:[]|slice:":col_range|length" %}
+                    {% endfor %}
+                </tr>
             {% endfor %}
         </tbody>
     </table>
