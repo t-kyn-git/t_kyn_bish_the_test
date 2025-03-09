@@ -29,7 +29,8 @@
     </div>
     <form method="POST">
         {% csrf_token %}
-        <input type="text" name="text" class="message-input" placeholder="Type a message..." required>
+        <textarea  type="text" name="text" class="message-input" placeholder="Type a message..." required></textarea>
+        <!-- <textarea id="description" name="description" placeholder="タスクの詳細を入力" rows="4"></textarea> -->
         <button type="submit" class="send-btn">Send</button>
     </form>
     <!-- <form method="POST">
