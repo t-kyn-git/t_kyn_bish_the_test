@@ -16,4 +16,5 @@ def map_view(request):
     else:
         form = LocationForm()
 
-    return render(request, "location/map.html", {"form": form, "locations": locations})
+    # return render(request, "location/map.html", {"form": form, "locations": locations})
+    return render(request, "map.html", {"form": form, "locations": locations})

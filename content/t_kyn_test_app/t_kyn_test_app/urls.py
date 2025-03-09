@@ -41,6 +41,7 @@ urlpatterns = [
     path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),
     path('chat/', include('chat.urls')),
     path('todolist/', include('todolist.urls')),
+    path('location/', include('location.urls')),
 ]
 
 if settings.DEBUG:
