@@ -28,22 +28,20 @@
     <table border="1">
         <thead>
             <tr>
-                <th>#</th>
+                <th></th> <!-- 左上の空白セル -->
                 {% for col_num in col_range %}
                     <th>{{ col_num }}</th>
                 {% endfor %}
             </tr>
         </thead>
         <tbody>
-            <!-- 行データの表示 -->
             {% for row_num in row_range %}
-                <tr>
-                    <td>{{ row_num }}</td>
-                    {% for col_num in col_range %}
-                        <!-- 各セルに対応するデータを表示 -->
-                        <td>{{ table_data[row_num|add:"-1"][col_num|add:"-1"]|default:"" }}</td>
-                    {% endfor %}
-                </tr>
+            <tr>
+                <th>{{ row_num }}</th> <!-- 行番号 -->
+                {% for cell in table_data|default:empty_list|slice:":col_range|length" %}
+                    <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
             {% endfor %}
         </tbody>
     </table>
