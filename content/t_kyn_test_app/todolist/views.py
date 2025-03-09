@@ -7,11 +7,22 @@ from .models import Task
 def todolist_view(request):
     if request.method == "POST":
         title = request.POST.get("title")
-        if title:
-            Task.objects.create(user=request.user, title=title)
+        # if title:
+        #     Task.objects.create(user=request.user, title=title)
         
-        completed_str = request.POST.get("completed")
-        completed = True if completed_str == "true" else "false"
+        # completed_str = request.POST.get("completed")
+        # completed = True if completed_str == "true" else "false"
+        description = request.POST.get("description", "").strip()  # 改行含む入力を取得
+
+        completed_str = request.POST.get("completed", "false")  # デフォルトは "false"
+        completed = completed_str.lower() == "true"  # 文字列をboolに変換
+        
+        task = Task.objects.create(
+            user=request.user,
+            title=title,
+            description=description,  # description を保存
+            completed=completed
+        )
         
         return redirect("todolist")
 
