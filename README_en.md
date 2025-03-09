@@ -42,6 +42,7 @@ A module will be created to test various functions.
     * Drawing tool (❌)
     * spreadsheet making tool (❌)
     * stock invest analyze tool (❌)
+    * cooking recipe viewer (❌)
   * 3) Testing New Features in Github Actions
     * Trial development of features that may incur costs in private repositories.
 
