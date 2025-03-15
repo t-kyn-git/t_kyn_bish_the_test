@@ -1,62 +1,54 @@
 # t_kyn_bish_the_test
-public test
-諸々の動作確認するためのモジュールを作成します。
+Public Test
 
-* 目的
-  * 近年、企業のビジネス変革が求められる時代となっており、DX推進を行う企業が増加している
-  * 個人の得意分野のスキルアップと同時に、新しい知識を効率よく取得する必要がある
-  * トライアンドエラーで動作確認を行いながら、仕組みを理解する
+A module will be created to test various functions.
 
-* 前提条件
-  * 個人情報はアップロード禁止
-  * データはオープンデータもしくは、Fakerを利用して作成
-  * 仕組みを思いついたら即作成するスタイルのため、品質に拘らない
+* Objectives
+  * In recent years, businesses have been required to undergo transformation.
+  * One aspect of this is the increasing number of companies pushing for DX (Digital Transformation) strategies.
+  * Alongside personal skill development in areas of expertise, there is a need to relearn new knowledge.
+  * Speed up the trial-and-error process of system development.
 
-* 作成している内容について
-  * 1) djangoアプリケーション開発
-    * 運用フロー
-      * Djangoアプリケーションの開発をVisual Studio code にて実装
-      * コミット・Githubリポジトリにアップロード
-      * Google Colaboratory上での動作確認
-      * Visual Studio code → Github → GoogleColaboratoryというフローで迅速な開発を行います。
-      * GoogleColaboratoryのファイルは特定のファイルを使用
+* Preconditions
+  * Personal information is prohibited from being uploaded.
+  * Data will be either open data or generated using Faker.
+  * The goal is to rapidly create systems as ideas come up.
+  * If not using Github Actions:
+
+* Content Being Developed
+  * 1) Django Application Development
+    * Operation Flow
+      * Develop Django applications using Visual Studio Code.
+      * Commit and upload to a Github repository.
+      * Perform functionality checks on Google Colaboratory.
+      * The flow for rapid development will be: Visual Studio Code → Github → Google Colaboratory.
+      * Specific file used on Google Colaboratory:
         * django_hogehogehogeeeeeeeeee.ipynb
-    * 応用
-      * オープンデータ活用（検討中）
-      * アルバムサーバとしての活用(**絶賛取組中**)
+    * Applications
+      * Utilizing open data (under consideration).
+
+  * 2) Web Hosting Development
+    * Functionality checks for HTML, CSS, and JavaScript.
+    * Use as an album server (**Currently working on acclaim**)
         * content/t_kyn_test_app/django_preinstall.sh
           * pip install django
         * python content/t_kyn_test_app/manage_t_kyn.py runserver
-          * pythonアプリケーション実行
-      * チャット（惜しいところまで✅）
-        * 複数ユーザでリアルタイムでチャットするように同期する（❌）
-      * Todo管理機能追加（✅）
-      * お絵描き機能（❌）
-      * 地図機能（✅）
-      * 株価分析機能（❌）
-      * スプレッドシート作成機能追加（❌）
-      * お料理レシピ作成機能追加（❌）
+          * execute the python applications.
+    * chat tool (almost ✅)
+      * Not probably realtime message exchange
+    * Todo management（✅）
+      * title and text descriptions.
+    * Map Location Recording（✅）
+    * Drawing tool (❌)
+    * spreadsheet making tool (❌)
+    * stock invest analyze tool (❌)
+    * cooking recipe viewer (❌)
+  * 3) Testing New Features in Github Actions
+    * Trial development of features that may incur costs in private repositories.
 
-  * 2) Webホスティング開発
-    * HTML、CSS、Javascriptの動作確認
-    * 
-
-  * 3) Github Actionsの新規機能をお試し実行
-    * プライベートリポジトリでは費用のかかる機能のお試し開発
-    * Terrraform、AWSCLIでのLocalstackのIaC実装
-    * https://spacelift.io/blog/terraform-best-practices
-
-* メモ
-  * 色々なことができそうなので、下記についても試す
-    * Github Actions で、Localstackを動かす。
-    https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a
-    * Github ActionsでLocalstack動かす＋Terraform
-    https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2
-    * https://qiita.com/zero_046/items/f9641f4ef28f0783700e
-    →書き方参考
-    * https://qiita.com/WebEngrChild/items/e5e3031d93158507cd5d
-    →Terraformを使う前に見ると少し理解が深まった。
-      Providers、Resources、Variables、Outputs、Data Sources、Moduleは把握したほうがよさそう。
-      Functionsは追々挙動を確認する。
-
-
+* Notes
+  * There are many possibilities:
+    * Running LocalStack with Github Actions.
+      https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a
+    * Running LocalStack with Github Actions + Terraform.
+      https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2
