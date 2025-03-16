@@ -1,0 +1,39 @@
+# License Information  
+
+## Main License: Apache License 2.0  
+
+This repository, developed by **t_kyn (t-kyn-git)**, is licensed under the **Apache License 2.0**.  
+You are free to use, modify, and distribute the code under the terms of this license.  
+
+For the full text of the Apache License 2.0, see [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).  
+
+---  
+
+## Third-Party Dependencies and Their Licenses  
+
+This repository includes third-party dependencies that are licensed under different terms.  
+These dependencies are subject to the respective licenses indicated below:  
+
+- **Django**: Licensed under the **BSD 3-Clause License**  
+- **LocalStack**: Licensed under the **Apache License 2.0**  
+- **tflocal**: Licensed under the **Mozilla Public License 2.0 (MPL-2.0)**  
+
+For more details on the licenses of third-party dependencies, see the `third_party_licenses/` directory.  
+
+---  
+
+## Patent Grant  
+
+Subject to the terms and conditions of the Apache License 2.0, **t_kyn (t-kyn-git)** grants you a worldwide, royalty-free,  
+non-exclusive license to use any patents held by **t_kyn (t-kyn-git)** that are necessary to exercise the rights granted to you under this license.  
+
+However, any use of third-party dependencies must comply with the patent provisions of the respective third-party licenses.  
+
+---  
+
+## Additional Notices  
+
+If you modify the code or distribute the software, you must comply with all applicable licenses.  
+Please ensure that the terms of the **Apache License 2.0** and the licenses of the third-party dependencies are followed.  
+
+For a complete list of third-party dependencies and their licenses, please refer to the `third_party_licenses/` directory.  
