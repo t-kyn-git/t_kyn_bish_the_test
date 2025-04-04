@@ -92,6 +92,7 @@ jobs:
       run: |
         ls -lrt
         pwd
+        chmod -R 755 terraform
 
     - name: Add TFLocal to PATH
       run: echo "$HOME/.local/bin" >> $GITHUB_PATH
