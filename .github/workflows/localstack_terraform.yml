@@ -64,6 +64,7 @@ jobs:
     #     wget https://github.com/localstack/terraform-local/releases/download/v0.13/tflocal-linux-amd64
     #     chmod +x tflocal-linux-amd64
     #     sudo mv tflocal-linux-amd64 /usr/local/bin/tflocal
+
     # TFLocal のインストール
     - name: Install TFLocal
       run: |
@@ -76,9 +77,37 @@ jobs:
     # chmod +x tflocal-linux-amd64
     # sudo mv tflocal-linux-amd64 /usr/local/bin/tflocal
 
+    - name: Check if tflocal is installed
+      run: which tflocal
+
+    # - name: Create symlink for tflocal
+    #   run: sudo ln -s /home/runner/.local/bin/tflocal /usr/local/bin/tflocal
+
+    # - name: Run Terraform Initialization
+    #   run: |
+    #     cd terraform
+    #     /home/runner/.local/bin/tflocal init
+    
     # 暫定追加
     - name: Print current directory(Temporary add 2024/09/07)
-      run: ls -lrt
+      run: |
+        ls -lrt
+        pwd
+    # chmod -R 777 terraform
+
+    - name: Add TFLocal to PATH
+      run: |
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+        echo $GITHUB_PATH
+
+    - name: Set TFLocal ENV
+      run: echo "TF_CLI_PATH=$(which terraform)" >> $GITHUB_ENV
+      
+    - name: Verify TFLocal
+      run: |
+        echo $PATH
+        which tflocal
+        tflocal --version
 
     # Lambdaのファイルがあるかの事前確認
     - name: Verify ZIP file creation
@@ -87,10 +116,22 @@ jobs:
         ls -la lambda/
         unzip -l lambda/lambda_function_payload.zip
 
+    # Terraform用ディレクトリ作成
+    # - name: Ensure terraform directory exists
+    #   run: mkdir -p terraform
+
+    # Terraform用ディレクトリ
+    # - name: Change to terraform directory
+    #   run: |
+    #     cd terraform
+    #     pwd
+
     # Terraform の初期化
     - name: Initialize TFLocal
       run: |
+        ls -lrta
         cd terraform
+        ls -lrta
         tflocal init
 
     # Terraform の適用
@@ -118,9 +159,12 @@ jobs:
       run: |
         docker ps -a
 
-    - name: Install AWS CLI
-      run: |
-        sudo apt-get install -y awscli
+    # - name: Install AWS CLI
+    #   run: |
+    #     sudo apt-get install -y awscli
+
+    - name: Check AWS CLI version
+      run: aws --version
 
     - name: Configure AWS CLI
       run: |
