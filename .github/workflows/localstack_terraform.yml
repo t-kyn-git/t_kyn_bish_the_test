@@ -93,6 +93,9 @@ jobs:
         ls -lrt
         pwd
 
+    - name: Add TFLocal to PATH
+      run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+
     # Lambdaのファイルがあるかの事前確認
     - name: Verify ZIP file creation
       run: |
@@ -114,7 +117,9 @@ jobs:
     - name: Initialize TFLocal
       run: |
         cd terraform
-        tflocal init
+        ls -lrt
+        ~/.local/bin/tflocal init
+        #tflocal init
 
     # # Terraform の初期化
     # - name: Initialize TFLocal
