@@ -121,7 +121,7 @@ jobs:
         ls -lrta
         cd terraform
         ls -lrta
-        #tflocal init
+        tflocal init
 
     # # Terraform の初期化
     # - name: Initialize TFLocal
