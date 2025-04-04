@@ -79,6 +79,11 @@ jobs:
     - name: Check if tflocal is installed
       run: which tflocal
 
+    - name: Run Terraform Initialization
+      run: |
+        cd terraform
+        /home/runner/.local/bin/tflocal init
+    
     # 暫定追加
     - name: Print current directory(Temporary add 2024/09/07)
       run: ls -lrt
