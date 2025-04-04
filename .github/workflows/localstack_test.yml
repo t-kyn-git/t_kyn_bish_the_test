@@ -21,9 +21,16 @@ jobs:
       run: |
         docker run --rm -d -p 4566:4566 localstack/localstack
 
+    # - name: Install AWS CLI
+    #   run: |
+    #     sudo apt-get install -y awscli
+
     - name: Install AWS CLI
       run: |
-        sudo apt-get install -y awscli
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        unzip awscliv2.zip
+        sudo ./aws/install
+        aws --version
 
     - name: Configure AWS CLI
       run: |
