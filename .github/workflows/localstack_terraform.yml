@@ -69,6 +69,9 @@ jobs:
       run: |
           pip install localstack-client
           pip install terraform-local
+          mkdir -pvm 777 terraform
+          chmod -x terraform-local/bin/tflocal
+          sudo mv terraform-local/bin/tflocal terraform/tflocal
     #       git clone https://github.com/localstack/terraform-local.git
     #       ls -lrtR
     #       chmod -x terraform-local/bin/tflocal
@@ -79,8 +82,8 @@ jobs:
     - name: Check if tflocal is installed
       run: which tflocal
 
-    - name: Create symlink for tflocal
-      run: sudo ln -s /home/runner/.local/bin/tflocal /usr/local/bin/tflocal
+    # - name: Create symlink for tflocal
+    #   run: sudo ln -s /home/runner/.local/bin/tflocal /usr/local/bin/tflocal
 
     # - name: Run Terraform Initialization
     #   run: |
@@ -108,11 +111,11 @@ jobs:
     #     cd terraform
     #     pwd
 
-    # # Terraform の初期化
-    # - name: Initialize TFLocal
-    #   run: |
-    #     cd terraform
-    #     tflocal init
+    # Terraform の初期化
+    - name: Initialize TFLocal
+      run: |
+        cd terraform
+        tflocal init
 
     # # Terraform の初期化
     # - name: Initialize TFLocal
