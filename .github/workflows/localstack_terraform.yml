@@ -87,6 +87,16 @@ jobs:
         ls -la lambda/
         unzip -l lambda/lambda_function_payload.zip
 
+    # Terraform用ディレクトリ作成
+    - name: Ensure terraform directory exists
+      run: mkdir -p terraform
+
+    # Terraform用ディレクトリ
+    - name: Change to terraform directory
+      run: |
+        cd terraform
+        pwd
+
     # Terraform の初期化
     - name: Initialize TFLocal
       run: |
