@@ -69,9 +69,6 @@ jobs:
       run: |
           pip install localstack-client
           pip install terraform-local
-          mkdir -pvm 777 terraform
-          chmod -x terraform-local/bin/tflocal
-          sudo mv terraform-local/bin/tflocal terraform/tflocal
     #       git clone https://github.com/localstack/terraform-local.git
     #       ls -lrtR
     #       chmod -x terraform-local/bin/tflocal
@@ -92,7 +89,9 @@ jobs:
     
     # 暫定追加
     - name: Print current directory(Temporary add 2024/09/07)
-      run: ls -lrt
+      run: |
+        ls -lrt
+        pwd
 
     # Lambdaのファイルがあるかの事前確認
     - name: Verify ZIP file creation
