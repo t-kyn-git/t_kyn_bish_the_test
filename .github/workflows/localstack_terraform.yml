@@ -76,6 +76,9 @@ jobs:
     # chmod +x tflocal-linux-amd64
     # sudo mv tflocal-linux-amd64 /usr/local/bin/tflocal
 
+    - name: Check if tflocal is installed
+      run: which tflocal
+
     # 暫定追加
     - name: Print current directory(Temporary add 2024/09/07)
       run: ls -lrt
