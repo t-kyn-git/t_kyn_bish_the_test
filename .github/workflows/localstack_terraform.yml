@@ -67,6 +67,7 @@ jobs:
     # TFLocal のインストール
     - name: Install TFLocal
       run: |
+          cd terraform
           pip install localstack-client
           pip install terraform-local
     #       git clone https://github.com/localstack/terraform-local.git
@@ -92,7 +93,7 @@ jobs:
       run: |
         ls -lrt
         pwd
-        chmod -R 777 terraform
+    # chmod -R 777 terraform
 
     - name: Add TFLocal to PATH
       run: echo "$HOME/.local/bin" >> $GITHUB_PATH
