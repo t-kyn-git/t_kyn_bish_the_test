@@ -105,7 +105,11 @@ jobs:
 
     # Terraform の初期化
     - name: Initialize TFLocal
-      run: tflocal init
+      run: |
+        ls -la
+        cd terraform
+        ls -la
+        tflocal init
 
     # Terraform の適用
     - name: Apply TFLocal configuration
