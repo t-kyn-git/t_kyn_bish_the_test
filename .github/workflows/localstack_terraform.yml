@@ -116,9 +116,9 @@ jobs:
     # Terraform の初期化
     - name: Initialize TFLocal
       run: |
+        ls -lrta
         cd terraform
-        ls -lrt
-        ~/.local/bin/tflocal init
+        ls -lrta
         #tflocal init
 
     # # Terraform の初期化
