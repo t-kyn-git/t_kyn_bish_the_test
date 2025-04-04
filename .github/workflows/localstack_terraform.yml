@@ -64,10 +64,10 @@ jobs:
     #     wget https://github.com/localstack/terraform-local/releases/download/v0.13/tflocal-linux-amd64
     #     chmod +x tflocal-linux-amd64
     #     sudo mv tflocal-linux-amd64 /usr/local/bin/tflocal
+
     # TFLocal のインストール
     - name: Install TFLocal
       run: |
-          cd terraform
           pip install localstack-client
           pip install terraform-local
     #       git clone https://github.com/localstack/terraform-local.git
@@ -122,15 +122,6 @@ jobs:
         cd terraform
         ls -lrta
         tflocal init
-
-    # # Terraform の初期化
-    # - name: Initialize TFLocal
-    #   run: |
-    #     ls -la
-    #     ls -la terraform
-    #     cd terraform
-    #     ls -la
-    #     tflocal init
 
     # Terraform の適用
     - name: Apply TFLocal configuration
