@@ -107,6 +107,7 @@ jobs:
     - name: Initialize TFLocal
       run: |
         ls -la
+        ls -la terraform
         cd terraform
         ls -la
         tflocal init
