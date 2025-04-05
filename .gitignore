@@ -1,3 +1,5 @@
 content/*/*/__pycache__/*
 content/*/*/*/__pycache__/*
 content/zipperfiles.zip
+terraform.zip
+terraform

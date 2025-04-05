@@ -80,6 +80,14 @@ jobs:
     - name: Check if tflocal is installed
       run: which tflocal
 
+    # Terraform をインストール（公式バイナリ）
+    - name: Install Terraform
+      run: |
+        curl -sLo terraform.zip https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip
+        unzip terraform.zip
+        sudo mv terraform /usr/local/bin/
+        terraform -version
+
     # - name: Create symlink for tflocal
     #   run: sudo ln -s /home/runner/.local/bin/tflocal /usr/local/bin/tflocal
 
@@ -112,7 +120,7 @@ jobs:
     # Lambdaのファイルがあるかの事前確認
     - name: Verify ZIP file creation
       run: |
-        cd terraform
+        cd terraform_t_kyn
         ls -la lambda/
         unzip -l lambda/lambda_function_payload.zip
 
@@ -130,27 +138,25 @@ jobs:
     - name: Initialize TFLocal
       run: |
         ls -lrta
-        cd terraform
-        ls -lrta
         tflocal init
 
     # Terraform の適用
     - name: Apply TFLocal configuration
       run: |
-        cd terraform
+        cd terraform_t_kyn
         ls -lrtR
         tflocal apply -auto-approve
 
     # 出力の確認
     - name: Output TFLocal state
       run: |
-        cd terraform
+        cd terraform_t_kyn
         tflocal output
 
     # 出力の確認
     - name: show TFLocal state
       run: |
-        cd terraform
+        cd terraform_t_kyn
         tflocal show
         tflocal state list
 
