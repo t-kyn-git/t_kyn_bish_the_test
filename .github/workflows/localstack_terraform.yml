@@ -103,19 +103,19 @@ jobs:
         pwd
     # chmod -R 777 terraform
 
-    - name: Add TFLocal to PATH
-      run: |
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
-        echo $GITHUB_PATH
+    # - name: Add TFLocal to PATH
+    #   run: |
+    #     echo "$HOME/.local/bin" >> $GITHUB_PATH
+    #     echo $GITHUB_PATH
 
-    - name: Set TFLocal ENV
-      run: echo "TF_CLI_PATH=$(which terraform)" >> $GITHUB_ENV
+    # - name: Set TFLocal ENV
+    #   run: echo "TF_CLI_PATH=$(which terraform)" >> $GITHUB_ENV
       
-    - name: Verify TFLocal
-      run: |
-        echo $PATH
-        which tflocal
-        tflocal --version
+    # - name: Verify TFLocal
+    #   run: |
+    #     echo $PATH
+    #     which tflocal
+    #     tflocal --version
 
     # Lambdaのファイルがあるかの事前確認
     - name: Verify ZIP file creation
@@ -137,6 +137,7 @@ jobs:
     # Terraform の初期化
     - name: Initialize TFLocal
       run: |
+        cd terraform_t_kyn
         ls -lrta
         tflocal init
 
@@ -170,7 +171,9 @@ jobs:
     #     sudo apt-get install -y awscli
 
     - name: Check AWS CLI version
-      run: aws --version
+      run: |
+        pip install awscli --upgrade --user
+        aws --version
 
     - name: Configure AWS CLI
       run: |

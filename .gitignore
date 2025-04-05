@@ -3,3 +3,6 @@ content/*/*/*/__pycache__/*
 content/zipperfiles.zip
 terraform.zip
 terraform
+terraform_t_kyn/.terraform
+terraform_t_kyn/.terraform.lock.hcl
+terraform_t_kyn/terraform.tfstate
