@@ -4,6 +4,8 @@ resource "aws_instance" "public_instance" {
   instance_type = var.public_instance_type
   subnet_id     = var.public_subnet_id
 
+  vpc_security_group_ids = [aws_security_group.allow_http_ssh.id] 
+
   tags = {
     Name = var.public_instance_name
   }
