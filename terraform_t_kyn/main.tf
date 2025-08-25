@@ -10,7 +10,7 @@ module "ec2" {
   source      = "./modules/ec2"
   public_subnet_id   = module.network.public_subnet_id
   private_subnet_id  = module.network.private_subnet_id
-  security_group_ids = [module.securitygroup.http_ssh_security_group_id] 
+	security_group_ids = [module.securitygroup.allow_http_ssh_id]
 }
 
 module "securitygroup" {
