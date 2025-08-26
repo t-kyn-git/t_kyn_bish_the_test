@@ -201,7 +201,7 @@ jobs:
         echo "===== API Gateway一覧 ====="
         aws --endpoint-url=$ENDPOINT apigateway get-rest-apis --output table
         echo "===== CloudWatch一覧 ====="
-        aws --endpoint-url=http://localhost:4566 cloudwatch describe-alarms --output table
+        #aws --endpoint-url=http://localhost:4566 cloudwatch describe-alarms --output table
         echo "===== Route53ホストゾーン一覧 ====="
         aws --endpoint-url=$ENDPOINT route53 list-hosted-zones --output table
 
