@@ -200,8 +200,8 @@ jobs:
         aws --endpoint-url=$ENDPOINT lambda list-functions --output table
         echo "===== API Gateway一覧 ====="
         aws --endpoint-url=$ENDPOINT apigateway get-rest-apis --output table
-        echo "===== CloudWatchロググループ一覧 ====="
-        aws --endpoint-url=$ENDPOINT logs describe-log-groups --output table
+        echo "===== CloudWatch一覧 ====="
+        aws --endpoint-url=http://localhost:4566 cloudwatch describe-alarms --output table
         echo "===== Route53ホストゾーン一覧 ====="
         aws --endpoint-url=$ENDPOINT route53 list-hosted-zones --output table
 
