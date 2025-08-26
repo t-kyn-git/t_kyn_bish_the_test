@@ -29,7 +29,7 @@ resource "aws_instance" "private_instance_db1" {
   instance_type = var.private_instance_db_type
   subnet_id     = var.private_subnet_db1_id
 
-  db_write_security_group_ids = var.db_write_security_group_id
+  db_write_security_group_ids = var.db_write_security_group_ids
   #db_write_security_group_ids = var.db_write_security_group_ids
 
   tags = {
@@ -42,7 +42,7 @@ resource "aws_instance" "private_instance_db2" {
   instance_type = var.private_instance_db_type
   subnet_id     = var.private_subnet_db2_id
 
-  db_read_security_group_ids = var.db_read_security_group_id
+  db_read_security_group_ids = var.db_read_security_group_ids
   #db_read_security_group_ids = var.db_read_security_group_ids
 
   tags = {
