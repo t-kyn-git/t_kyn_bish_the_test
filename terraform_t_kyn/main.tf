@@ -11,6 +11,7 @@ module "ec2" {
   public_subnet_id   = module.network.public_subnet_id
   private_subnet_id  = module.network.private_subnet_id
 	security_group_ids = [module.securitygroup.security_group_id]
+  mysql_security_group_ids = [module.securitygroup.mysql_security_group_id]
 }
 
 module "securitygroup" {

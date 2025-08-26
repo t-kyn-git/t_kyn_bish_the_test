@@ -22,6 +22,18 @@ variable "private_instance_type" {
   default     = "t2.micro"
 }
 
+variable "private_instance_mysql_ami" {
+  description = "The AMI ID for the private EC2 mysql instance"
+  type        = string
+  default     = "ami-33063306"  # Replace with the actual AMI ID
+}
+
+variable "private_instance_mysql_type" {
+  description = "The instance type for the private EC2 mysql instance"
+  type        = string
+  default     = "t2.micro"
+}
+
 variable "public_subnet_id" {
   description = "The subnet ID for the public EC2 instance"
   type        = string
@@ -29,6 +41,16 @@ variable "public_subnet_id" {
 
 variable "private_subnet_id" {
   description = "The subnet ID for the private EC2 instance"
+  type        = string
+}
+
+variable "private_mysql_master_subnet_id" {
+  description = "The subnet ID for the mysql master EC2 instance"
+  type        = string
+}
+
+variable "private_mysql_slave_subnet_id" {
+  description = "The subnet ID for the mysql slave EC2 instance"
   type        = string
 }
 
@@ -42,6 +64,18 @@ variable "private_instance_name" {
   description = "The name tag for the private EC2 instance"
   type        = string
   default     = "PrivateInstance"
+}
+
+variable "private_mysql_master_instance_name" {
+  description = "The name tag for the mysql master EC2 instance"
+  type        = string
+  default     = "PrivateMysqlMasterInstance"
+}
+
+variable "private_mysql_slave_instance_name" {
+  description = "The name tag for the mysql slave EC2 instance"
+  type        = string
+  default     = "PrivateMysqlSlaveInstance"
 }
 
 variable "security_group_ids" {

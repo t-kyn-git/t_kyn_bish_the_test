@@ -22,3 +22,14 @@ resource "aws_security_group" "allow_http_ssh" {
     cidr_blocks = var.egress_cidr_blocks
   }
 }
+
+resource "aws_security_group" "allow_mysql" {
+  vpc_id = var.vpc_id
+
+  ingress {
+    from_port   = var.mysql_from_port
+    to_port     = var.mysql_to_port
+    protocol    = var.mysql_protocol
+    cidr_blocks = var.mysql_cidr_blocks
+  }
+}

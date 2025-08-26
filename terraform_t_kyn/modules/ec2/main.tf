@@ -9,7 +9,6 @@ resource "aws_instance" "public_instance" {
   # adding public ip
   associate_public_ip_address = var.associate_public_ip
   
-
   tags = {
     Name = var.public_instance_name
   }
@@ -22,5 +21,29 @@ resource "aws_instance" "private_instance" {
 
   tags = {
     Name = var.private_instance_name
+  }
+}
+
+resource "aws_instance" "private_instance_db_mysql_master" {
+  ami           = var.private_instance_mysql_ami
+  instance_type = var.private_instance_mysql_type
+  subnet_id     = var.private_mysql_master_subnet_id
+
+  mysql_security_group_ids = var.mysql_security_group_ids
+
+  tags = {
+    Name = var.private_mysql_master_instance_name
+  }
+}
+
+resource "aws_instance" "private_instance_db_mysql_slave" {
+  ami           = var.private_instance_mysql_ami
+  instance_type = var.private_instance_mysql_type
+  subnet_id     = var.private_mysql_slave_subnet_id
+
+  mysql_security_group_ids = var.mysql_security_group_ids
+
+  tags = {
+    Name = var.private_mysql_slave_instance_name
   }
 }
