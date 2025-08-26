@@ -6,6 +6,10 @@ resource "aws_instance" "public_instance" {
 
 	vpc_security_group_ids = var.security_group_ids
 
+  # adding public ip
+  associate_public_ip_address = var.associate_public_ip
+  
+
   tags = {
     Name = var.public_instance_name
   }
