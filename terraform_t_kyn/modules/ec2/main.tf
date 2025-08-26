@@ -30,7 +30,7 @@ resource "aws_instance" "private_instance_db1" {
   subnet_id     = var.private_subnet_db1_id
 
   #vpc_security_group_ids = var.db_write_security_group_ids
-  vpc_security_group_ids = ncat(var.db_write_security_group_ids, var.db_read_security_group_ids)
+  vpc_security_group_ids = concat(var.db_write_security_group_ids, var.db_read_security_group_ids)
   #db_write_security_group_ids = var.db_write_security_group_ids
 
   tags = {
