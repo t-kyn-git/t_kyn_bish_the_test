@@ -22,13 +22,13 @@ variable "private_instance_type" {
   default     = "t2.micro"
 }
 
-variable "private_instance_mysql_ami" {
+variable "private_instance_db_ami" {
   description = "The AMI ID for the private EC2 mysql instance"
   type        = string
-  default     = "ami-33063306"  # Replace with the actual AMI ID
+  default     = "ami-mysql3306"  # Replace with the actual AMI ID
 }
 
-variable "private_instance_mysql_type" {
+variable "private_instance_db_type" {
   description = "The instance type for the private EC2 mysql instance"
   type        = string
   default     = "t2.micro"
@@ -44,12 +44,12 @@ variable "private_subnet_id" {
   type        = string
 }
 
-variable "private_mysql_master_subnet_id" {
+variable "private_subnet_db1_id" {
   description = "The subnet ID for the mysql master EC2 instance"
   type        = string
 }
 
-variable "private_mysql_slave_subnet_id" {
+variable "private_subnet_db2_id" {
   description = "The subnet ID for the mysql slave EC2 instance"
   type        = string
 }
@@ -66,13 +66,13 @@ variable "private_instance_name" {
   default     = "PrivateInstance"
 }
 
-variable "private_mysql_master_instance_name" {
+variable "private_db1_instance_name" {
   description = "The name tag for the mysql master EC2 instance"
   type        = string
   default     = "PrivateMysqlMasterInstance"
 }
 
-variable "private_mysql_slave_instance_name" {
+variable "private_db2_instance_name" {
   description = "The name tag for the mysql slave EC2 instance"
   type        = string
   default     = "PrivateMysqlSlaveInstance"
@@ -80,6 +80,16 @@ variable "private_mysql_slave_instance_name" {
 
 variable "security_group_ids" {
   description = "A list of security group IDs to associate with the EC2 instance."
+  type        = list(string)
+}
+
+variable "db_write_security_group_ids" {
+  description = "A list of security group IDs to associate with the mysql master EC2 instance."
+  type        = list(string)
+}
+
+variable "db_read_security_group_ids" {
+  description = "A list of security group IDs to associate with the mysql slave EC2 instance."
   type        = list(string)
 }
 

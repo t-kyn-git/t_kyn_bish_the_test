@@ -78,27 +78,52 @@ variable "egress_cidr_blocks" {
   default     = ["0.0.0.0/0"]
 }
 
-# MySQL specific variables
-variable "mysql_from_port" {
+# MySQL db_write specific variables
+variable "db_write_from_port" {
   description = "Mysql ingress from port"
   type        = number
   default     = 3306
 }
 
-variable "mysql_to_port" {
+variable "db_write_to_port" {
   description = "Mysql ingress to port"
   type        = number
   default     = 3306
 }
 
-variable "mysql_protocol" {
+variable "db_write_protocol" {
   description = "Protocol for Mysql ingress"
   type        = string
   default     = "tcp"
 }
 
-variable "mysql_cidr_blocks" {
+variable "db_write_cidr_blocks" {
   description = "CIDR blocks for Mysql ingress"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
+
+# MySQL db_read specific variables
+variable "db_read_from_port" {
+  description = "Mysql read ingress from port"
+  type        = number
+  default     = 3307
+}
+
+variable "db_read_to_port" {
+  description = "Mysql read ingress to port"
+  type        = number
+  default     = 3307
+}
+
+variable "db_read_protocol" {
+  description = "Protocol for Mysql read ingress"
+  type        = string
+  default     = "tcp"
+}
+
+variable "db_read_cidr_blocks" {
+  description = "CIDR blocks for Mysql read ingress"
   type        = list(string)
   default     = ["0.0.0.0/0"]
 }

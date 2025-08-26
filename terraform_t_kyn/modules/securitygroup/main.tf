@@ -23,13 +23,24 @@ resource "aws_security_group" "allow_http_ssh" {
   }
 }
 
-resource "aws_security_group" "allow_mysql" {
+resource "aws_security_group" "allow_db_write" {
   vpc_id = var.vpc_id
 
   ingress {
-    from_port   = var.mysql_from_port
-    to_port     = var.mysql_to_port
-    protocol    = var.mysql_protocol
-    cidr_blocks = var.mysql_cidr_blocks
+    from_port   = var.db_write_from_port
+    to_port     = var.db_write_to_port
+    protocol    = var.db_write_protocol
+    cidr_blocks = var.db_write_cidr_blocks
+  }
+}
+
+resource "aws_security_group" "allow_db_read" {
+  vpc_id = var.vpc_id
+
+  ingress {
+    from_port   = var.db_read_from_port
+    to_port     = var.db_read_to_port
+    protocol    = var.db_read_protocol
+    cidr_blocks = var.db_read_cidr_blocks
   }
 }

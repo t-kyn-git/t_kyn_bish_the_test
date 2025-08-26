@@ -24,26 +24,26 @@ resource "aws_instance" "private_instance" {
   }
 }
 
-resource "aws_instance" "private_instance_db_mysql_master" {
-  ami           = var.private_instance_mysql_ami
-  instance_type = var.private_instance_mysql_type
-  subnet_id     = var.private_mysql_master_subnet_id
+resource "aws_instance" "private_instance_db1" {
+  ami           = var.private_instance_db_ami
+  instance_type = var.private_instance_db_type
+  subnet_id     = var.private_subnet_db1_id
 
-  mysql_security_group_ids = var.mysql_security_group_ids
+  security_group_ids = var.db_write_security_group_ids
 
   tags = {
-    Name = var.private_mysql_master_instance_name
+    Name = var.private_db1_instance_name
   }
 }
 
-resource "aws_instance" "private_instance_db_mysql_slave" {
-  ami           = var.private_instance_mysql_ami
-  instance_type = var.private_instance_mysql_type
-  subnet_id     = var.private_mysql_slave_subnet_id
+resource "aws_instance" "private_instance_db2" {
+  ami           = var.private_instance_db_ami
+  instance_type = var.private_instance_db_type
+  subnet_id     = var.private_subnet_db2_id
 
-  mysql_security_group_ids = var.mysql_security_group_ids
+    security_group_ids = var.db_read_security_group_ids
 
   tags = {
-    Name = var.private_mysql_slave_instance_name
+    Name = var.private_db2_instance_name
   }
 }
