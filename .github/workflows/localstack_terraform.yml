@@ -181,27 +181,27 @@ jobs:
         aws configure set aws_access_key_id mock_secret_key
         aws configure set aws_secret_access_key mock_secret_key
         aws configure set region us-east-1
-        aws --endpoint-url=http://localhost:4566 ec2 describe-instances
+        aws --endpoint-url=http://localhost:4566 ec2 describe-instances --output text
         ENDPOINT="http://localhost:4566"
-        aws --endpoint-url=$ENDPOINT ec2 describe-vpcs --output table
+        aws --endpoint-url=$ENDPOINT ec2 describe-vpcs --output text
         echo "===== サブネット一覧 ====="
-        aws --endpoint-url=$ENDPOINT ec2 describe-subnets --output table
+        aws --endpoint-url=$ENDPOINT ec2 describe-subnets --output text
         echo "===== セキュリティグループ一覧 ====="
-        aws --endpoint-url=$ENDPOINT ec2 describe-security-groups --output table
+        aws --endpoint-url=$ENDPOINT ec2 describe-security-groups --output text
         echo "===== ルートテーブル一覧 ====="
-        aws --endpoint-url=$ENDPOINT ec2 describe-route-tables --output table
+        aws --endpoint-url=$ENDPOINT ec2 describe-route-tables --output text
         echo "===== EC2インスタンス一覧 ====="
-        aws --endpoint-url=$ENDPOINT ec2 describe-instances --output table
+        aws --endpoint-url=$ENDPOINT ec2 describe-instances --output text
         echo "===== キーペア一覧 ====="
-        aws --endpoint-url=$ENDPOINT ec2 describe-key-pairs --output table
+        aws --endpoint-url=$ENDPOINT ec2 describe-key-pairs --output text
         echo "===== S3バケット一覧 ====="
-        aws --endpoint-url=$ENDPOINT s3api list-buckets --output table
+        aws --endpoint-url=$ENDPOINT s3api list-buckets --output text
         echo "===== Lambda関数一覧 ====="
-        aws --endpoint-url=$ENDPOINT lambda list-functions --output table
+        aws --endpoint-url=$ENDPOINT lambda list-functions --output text
         echo "===== API Gateway一覧 ====="
-        aws --endpoint-url=$ENDPOINT apigateway get-rest-apis --output table
+        aws --endpoint-url=$ENDPOINT apigateway get-rest-apis --output text
         echo "===== CloudWatch一覧 ====="
-        #aws --endpoint-url=$ENDPOINT cloudwatch describe-alarms --output table
+        #aws --endpoint-url=$ENDPOINT cloudwatch describe-alarms --output text
         echo "===== Route53ホストゾーン一覧 ====="
-        aws --endpoint-url=$ENDPOINT route53 list-hosted-zones --output table
+        aws --endpoint-url=$ENDPOINT route53 list-hosted-zones --output text
 
