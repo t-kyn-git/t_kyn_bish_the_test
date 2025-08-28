@@ -1,14 +1,17 @@
 name: TFLocal Workflow
 
 # before ph2 testing
-# on: [push]
 on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "aws_output_*.txt"
   pull_request:
     branches:
       - main
+
+
 
 jobs:
   terraform-local:
