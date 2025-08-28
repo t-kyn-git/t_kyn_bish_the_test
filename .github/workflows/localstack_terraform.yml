@@ -1,5 +1,8 @@
 name: TFLocal Workflow
 
+permissions:
+  contents: write
+
 # before ph2 testing
 on:
   push:
