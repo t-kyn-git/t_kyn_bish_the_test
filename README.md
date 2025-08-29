@@ -1,4 +1,4 @@
-# t_kyn_bish_the_test
+# t_kyn_communal_the_test
 Public Test
 
 A module will be created to test various functions.
