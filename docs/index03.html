@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0 url('https://www.transparenttextures.com/patterns/polkadots.png');
+            background-size: 50px 50px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        h1 {
+            font-size: 1.8em; /* 変更前: 2.0em */
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        h2 {
+            font-size: 1.4em; /* 変更前: 1.6em */
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-top: 20px;
+        }
+        h3 {
+            font-size: 1.1em; /* 変更前: 1.2em */
+            margin-top: 20px;
+        }
+        h4 {
+            font-size: 0.9em; /* 変更前: 1.0em */
+            margin-top: 15px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75em; /* 変更前: 0.8em */
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 0.75em; /* 変更前: 0.8em */
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            table-layout: fixed;
+            font-size: 0.9em; /* 変更前: 0.95em */
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            word-wrap: break-word;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        td {
+            background-color: #fff;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 0.85em; /* 変更前: 0.9em */
+            color: #666;
+        }
+
+        /* Fade-in effect */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+        }
+
+        /* Group fade-in container */
+        .fade-in-group {
+            opacity: 0;
+            transition: opacity 1.5s ease-in;
+        }
+
+        .fade-in-group.visible {
+            opacity: 1;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.3em; /* 変更前: 1.5em */
+            }
+            h2 {
+                font-size: 1.1em; /* 変更前: 1.3em */
+            }
+            h3 {
+                font-size: 0.9em; /* 変更前: 1.0em */
+            }
+            table {
+                font-size: 0.75em; /* 変更前: 0.8em */
+            }
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 id="dynamic-text"></h1>
+
+        <!-- Fade-in group container -->
+        <div class="fade-in-group">
+            <h2>Objectives</h2>
+            <ul>
+                <li>In recent years, businesses have been required to undergo transformation.</li>
+                <li>One aspect of this is the increasing number of companies pushing for DX (Digital Transformation) strategies.</li>
+                <li>Alongside personal skill development in areas of expertise, there is a need to relearn new knowledge.</li>
+                <li>Speed up the trial-and-error process of system development.</li>
+            </ul>
+
+            <h2>Preconditions</h2>
+            <ul>
+                <li>Personal information is prohibited from being uploaded.</li>
+                <li>Data will be either open data or generated using Faker.</li>
+                <li>The goal is to rapidly create systems as ideas come up.</li>
+                <li>If not using Github Actions:</li>
+                <li>There may be some inappropriate language.</li>
+            </ul>
+
+            <h2>Content Being Developed</h2>
+            <table>
+                <tr>
+                    <th>Development Area</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><strong>1) Django Application Development</strong></td>
+                    <td>
+                        <ul>
+                            <li>Develop Django applications using Visual Studio Code.</li>
+                            <li>Commit and upload to a Github repository.</li>
+                            <li>Perform functionality checks on Google Colaboratory.</li>
+                            <li>The flow for rapid development will be: Visual Studio Code → Github → Google Colaboratory.</li>
+                            <li>Specific file used on Google Colaboratory: <code>django_hogehogehogeeeeeeeeee.ipynb</code></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>2) Web Hosting Development</strong></td>
+                    <td>
+                        <ul>
+                            <li>Functionality checks for HTML, CSS, and JavaScript.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>3) Testing New Features in Github Actions</strong></td>
+                    <td>
+                        <ul>
+                            <li>Trial development of features that may incur costs in private repositories.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>4) Notes</strong></td>
+                    <td>
+                        <ul>
+                            <li>There are many possibilities:</li>
+                            <ul>
+                                <li>Running LocalStack with Github Actions.
+                                    <a href="https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a" target="_blank">https://qiita.com/damepo9696/items/fcf2af605b45bdf07b1a</a>
+                                </li>
+                                <li>Running LocalStack with Github Actions + Terraform.
+                                    <a href="https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2" target="_blank">https://medium.com/@robbiedouglas/using-localstack-and-github-actions-to-test-terraform-aws-deployments-0a119dcff7c2</a>
+                                </li>
+                            </ul>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>5) Further more</strong></td>
+                    <td>
+                        <ul>
+                            <li>All other repositories are below. </li>
+                                <li>We show the repository as the public sub name (nickname) in the the world because of security defence.</li>
+                                <li>ALL Repositries.</li>
+                                <a href="subdir/toppage.html">
+                                <li>UNKO page.</li>
+                                <a href="subdir/repositry_public_info/hello.html">
+                                <li>HELLO(public)</li>
+                                <a href="subdir/repositry_public_info/automatic.html">
+                                <li>Automatic(privateOCR)</li>
+                                <a href="subdir/repositry_public_info/rustynail.html">
+                                <li>RustyNail(Games)</li>
+                                <a href="subdir/repositry_public_info/tomorrowneverknows.html">
+                                <li>TomorrowNeverKnows(managementBI)</li>
+                                <a href="subdir/repositry_public_info/eversince.html">
+                                <li>everSince(djangoAlbum)</li>
+                                <a href="subdir/repositry_public_info/ultrasoul.html">
+                                <li>ultrasoul(NetworkPKTGoogleAI)</li>
+                                <a href="subdir/repositry_public_info/myfriend.html">
+                                <li>MyFriend(ExpressReactECSite)</li>   
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Document created for testing and development purposes.</p>
+    </div>
+
+    <script>
+        // Display "t_kyn_communal_the_test" one character at a time every 0.2 seconds
+        const text = "t_kyn_communal_the_test";
+        const container = document.getElementById("dynamic-text");
+
+        text.split("").forEach((char, index) => {
+            setTimeout(() => {
+                container.textContent += char;
+            }, index * 200);
+        });
+
+        // Fade-in effect for the group container
+        const fadeInGroup = document.querySelector('.fade-in-group');
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    fadeInGroup.classList.add('visible');
+                    observer.unobserve(entry.target); // Stop observing once the element is visible
+                }
+            });
+        });
+
+        observer.observe(fadeInGroup);
+    </script>
+</body>
+</html>
